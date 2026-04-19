@@ -1,0 +1,254 @@
+JourneysScreen As screen:
+    Fill: =theme.bgCanvas
+    OnVisible: =Set(activeNav,"Journeys")
+
+    SideNav As component:
+        ZIndex: =1
+
+    GlowAccent As circle:
+        X: =Parent.Width - 300
+        Y: =-150
+        Width: =500
+        Height: =500
+        Fill: =RGBA(0,229,255,0.10)
+        BorderColor: =Color.Transparent
+
+    TopBar As rectangle:
+        X: =96
+        Y: =0
+        Width: =Parent.Width - 96
+        Height: =80
+        Fill: =RGBA(10,14,39,0.6)
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    BackBtn As button:
+        X: =128
+        Y: =22
+        Width: =40
+        Height: =36
+        Text: ="←"
+        Fill: =theme.bgSurface
+        Color: =theme.cyan
+        BorderColor: =theme.borderSubtle
+        Size: =18
+        FontWeight: =FontWeight.Bold
+        OnSelect: =Back()
+
+    BreadcrumbLabel As label:
+        X: =184
+        Y: =0
+        Width: =400
+        Height: =80
+        Text: ="PS AI HUB · Lernreisen"
+        Color: =theme.textMid
+        Size: =13
+        VerticalAlign: =VerticalAlign.Middle
+
+    PageTitle As label:
+        X: =128
+        Y: =112
+        Width: =800
+        Height: =56
+        Text: =If(IsBlank(selectedCategory), "Alle Lernreisen", selectedCategory.name)
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =40
+        FontWeight: =FontWeight.Bold
+
+    PageSubtitle As label:
+        X: =128
+        Y: =168
+        Width: =Parent.Width - 256
+        Height: =32
+        Text: |
+            =If(
+                IsBlank(selectedCategory),
+                Text(CountRows(colJourneys)) & " Journeys verfügbar — finde deinen Weg.",
+                selectedCategory.description
+            )
+        Color: =theme.textMid
+        Size: =14
+
+    ClearFilterBtn As button:
+        X: =Parent.Width - 200
+        Y: =128
+        Width: =160
+        Height: =36
+        Text: ="× Filter zurücksetzen"
+        Fill: =theme.bgSurface
+        Color: =theme.cyan
+        BorderColor: =theme.cyan
+        BorderThickness: =1
+        Size: =11
+        Visible: =!IsBlank(selectedCategory)
+        OnSelect: =Set(selectedCategory, Blank())
+
+    // Filter chips
+    FilterAll As button:
+        X: =128
+        Y: =224
+        Width: =80
+        Height: =34
+        Text: ="Alle"
+        Fill: =If(IsBlank(selectedLevelFilter), theme.cyan, theme.bgSurface)
+        Color: =If(IsBlank(selectedLevelFilter), theme.bgDeep, theme.textMid)
+        BorderColor: =theme.borderSubtle
+        Size: =11
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Set(selectedLevelFilter, Blank())
+
+    FilterBeginner As button:
+        X: =216
+        Y: =224
+        Width: =100
+        Height: =34
+        Text: ="Beginner"
+        Fill: =If(selectedLevelFilter="Beginner", theme.lime, theme.bgSurface)
+        Color: =If(selectedLevelFilter="Beginner", theme.bgDeep, theme.textMid)
+        BorderColor: =theme.borderSubtle
+        Size: =11
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Set(selectedLevelFilter, "Beginner")
+
+    FilterIntermediate As button:
+        X: =324
+        Y: =224
+        Width: =120
+        Height: =34
+        Text: ="Intermediate"
+        Fill: =If(selectedLevelFilter="Intermediate", theme.amber, theme.bgSurface)
+        Color: =If(selectedLevelFilter="Intermediate", theme.bgDeep, theme.textMid)
+        BorderColor: =theme.borderSubtle
+        Size: =11
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Set(selectedLevelFilter, "Intermediate")
+
+    FilterAdvanced As button:
+        X: =452
+        Y: =224
+        Width: =100
+        Height: =34
+        Text: ="Advanced"
+        Fill: =If(selectedLevelFilter="Advanced", theme.pink, theme.bgSurface)
+        Color: =If(selectedLevelFilter="Advanced", theme.bgDeep, theme.textMid)
+        BorderColor: =theme.borderSubtle
+        Size: =11
+        FontWeight: =FontWeight.Semibold
+        OnSelect: =Set(selectedLevelFilter, "Advanced")
+
+    // ====== JOURNEYS GRID ======
+    JourneysGrid As gallery:
+        X: =128
+        Y: =280
+        Width: =Parent.Width - 160
+        Height: =Parent.Height - 312
+        TemplateSize: =380
+        WrapCount: =3
+        Items: |
+            =Filter(
+                colJourneys,
+                (IsBlank(selectedCategory)     Or category = selectedCategory.id) &&
+                (IsBlank(selectedLevelFilter)  Or level    = selectedLevelFilter)
+            )
+        ShowScrollbar: =true
+        TemplatePadding: =16
+        Fill: =Color.Transparent
+
+        JCardBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 32
+            Height: =360
+            Fill: =theme.bgSurface
+            BorderColor: =theme.borderSubtle
+            BorderThickness: =1
+
+        JCardCover As image:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 32
+            Height: =180
+            Image: =ThisItem.cover
+            ImagePosition: =ImagePosition.Fill
+
+        JCardOverlay As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 32
+            Height: =180
+            Fill: =RGBA(10,14,39,0.40)
+            BorderColor: =Color.Transparent
+
+        JCardLevel As label:
+            X: =16
+            Y: =16
+            Width: =100
+            Height: =26
+            Text: =Upper(ThisItem.level)
+            Color: =theme.bgDeep
+            Fill: =ThisItem.color
+            Size: =10
+            FontWeight: =FontWeight.Bold
+            Align: =Align.Center
+            VerticalAlign: =VerticalAlign.Middle
+
+        JCardCatTag As label:
+            X: =Parent.TemplateWidth - 156
+            Y: =16
+            Width: =108
+            Height: =26
+            Text: =LookUp(colCategories, id = ThisItem.category, name)
+            Color: =theme.textHi
+            Fill: =RGBA(10,14,39,0.7)
+            Size: =10
+            Align: =Align.Center
+            VerticalAlign: =VerticalAlign.Middle
+
+        JCardTitle As label:
+            X: =16
+            Y: =196
+            Width: =Parent.TemplateWidth - 64
+            Height: =54
+            Text: =ThisItem.title
+            Color: =theme.textHi
+            Size: =17
+            FontWeight: =FontWeight.Semibold
+
+        JCardDesc As label:
+            X: =16
+            Y: =252
+            Width: =Parent.TemplateWidth - 64
+            Height: =54
+            Text: =ThisItem.description
+            Color: =theme.textMid
+            Size: =11
+
+        JCardMeta As label:
+            X: =16
+            Y: =316
+            Width: =200
+            Height: =20
+            Text: ="⏱ " & ThisItem.duration & "m  ·  📚 " & ThisItem.modulesCount & "  ·  ★ " & Text(ThisItem.rating,"#.0")
+            Color: =theme.textLo
+            Size: =11
+
+        JCardEnrolled As label:
+            X: =Parent.TemplateWidth - 124
+            Y: =316
+            Width: =100
+            Height: =20
+            Text: =Text(ThisItem.learners) & " Lerner"
+            Color: =theme.textLo
+            Size: =11
+            Align: =Align.End
+
+        JCardClick As button:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 32
+            Height: =360
+            Text: =""
+            Fill: =Color.Transparent
+            BorderColor: =Color.Transparent
+            OnSelect: =Set(selectedJourney, ThisItem); Navigate(JourneyDetailScreen, ScreenTransition.Fade)

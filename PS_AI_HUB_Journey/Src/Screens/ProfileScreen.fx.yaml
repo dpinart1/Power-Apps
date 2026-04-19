@@ -1,0 +1,281 @@
+ProfileScreen As screen:
+    Fill: =theme.bgCanvas
+    OnVisible: =Set(activeNav,"Profile")
+
+    GlowPro As circle:
+        X: =Parent.Width/2 - 250
+        Y: =-100
+        Width: =500
+        Height: =500
+        Fill: =RGBA(176,38,255,0.12)
+        BorderColor: =Color.Transparent
+
+    TopBar As rectangle:
+        X: =96
+        Y: =0
+        Width: =Parent.Width - 96
+        Height: =80
+        Fill: =RGBA(10,14,39,0.6)
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    BackBtn As button:
+        X: =128
+        Y: =22
+        Width: =40
+        Height: =36
+        Text: ="←"
+        Fill: =theme.bgSurface
+        Color: =theme.cyan
+        BorderColor: =theme.borderSubtle
+        Size: =18
+        OnSelect: =Back()
+
+    // ==== Profile Hero ====
+    ProfileBg As rectangle:
+        X: =128
+        Y: =112
+        Width: =Parent.Width - 256
+        Height: =220
+        Fill: =theme.bgSurface
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    ProfileGlowSide As rectangle:
+        X: =128
+        Y: =112
+        Width: =4
+        Height: =220
+        Fill: =theme.purple
+        BorderColor: =Color.Transparent
+
+    AvatarRingOuter As circle:
+        X: =160
+        Y: =144
+        Width: =160
+        Height: =160
+        Fill: =Color.Transparent
+        BorderColor: =theme.cyan
+        BorderThickness: =3
+
+    AvatarFill As circle:
+        X: =176
+        Y: =160
+        Width: =128
+        Height: =128
+        Fill: =theme.purple
+
+    AvatarInitials As label:
+        X: =176
+        Y: =160
+        Width: =128
+        Height: =128
+        Text: =Left(currentUser.name,1) & Mid(currentUser.name, Find(" ",currentUser.name & " ")+1, 1)
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =44
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+        VerticalAlign: =VerticalAlign.Middle
+
+    NameLbl As label:
+        X: =352
+        Y: =152
+        Width: =500
+        Height: =48
+        Text: =currentUser.name
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =32
+        FontWeight: =FontWeight.Bold
+
+    EmailLbl As label:
+        X: =352
+        Y: =200
+        Width: =500
+        Height: =26
+        Text: =currentUser.email
+        Color: =theme.textMid
+        Size: =13
+
+    LevelBadge As label:
+        X: =352
+        Y: =236
+        Width: =160
+        Height: =34
+        Text: ="LEVEL " & currentUser.level & " · LERNER"
+        Color: =theme.bgDeep
+        Fill: =theme.cyan
+        Size: =10
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+        VerticalAlign: =VerticalAlign.Middle
+
+    JoinedLbl As label:
+        X: =352
+        Y: =282
+        Width: =500
+        Height: =22
+        Text: ="Mitglied seit " & Text(currentUser.joinedOn, "[$-de-DE]mmmm yyyy")
+        Color: =theme.textLo
+        Size: =11
+        Italic: =true
+
+    EditProfileBtn As button:
+        X: =Parent.Width - 320
+        Y: =152
+        Width: =160
+        Height: =40
+        Text: ="✎ Bearbeiten"
+        Fill: =theme.bgSurfaceAlt
+        Color: =theme.textHi
+        BorderColor: =theme.borderSubtle
+        Size: =11
+        OnSelect: =Notify("Profil-Bearbeitung folgt in v2!", NotificationType.Information)
+
+    LogoutBtn As button:
+        X: =Parent.Width - 320
+        Y: =200
+        Width: =160
+        Height: =40
+        Text: ="⏻ Abmelden"
+        Fill: =Color.Transparent
+        Color: =theme.danger
+        BorderColor: =theme.danger
+        BorderThickness: =1
+        Size: =11
+        OnSelect: =Notify("Abmeldung in Power Apps-Host steuern.", NotificationType.Warning)
+
+    // ==== Settings ====
+    SettingsHead As label:
+        X: =128
+        Y: =368
+        Width: =500
+        Height: =40
+        Text: ="Einstellungen"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =22
+        FontWeight: =FontWeight.Semibold
+
+    SettingNotifBg As rectangle:
+        X: =128
+        Y: =420
+        Width: =Parent.Width - 256
+        Height: =72
+        Fill: =theme.bgSurface
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    SettingNotifLbl As label:
+        X: =152
+        Y: =432
+        Width: =400
+        Height: =24
+        Text: ="🔔 Push-Benachrichtigungen"
+        Color: =theme.textHi
+        Size: =14
+        FontWeight: =FontWeight.Semibold
+
+    SettingNotifSub As label:
+        X: =152
+        Y: =456
+        Width: =400
+        Height: =22
+        Text: ="Erinnerungen an deinen täglichen Lern-Slot"
+        Color: =theme.textMid
+        Size: =11
+
+    SettingNotifToggle As toggle:
+        X: =Parent.Width - 220
+        Y: =440
+        Width: =80
+        Height: =32
+        Default: =true
+        FillSelected: =theme.cyan
+
+    SettingDarkBg As rectangle:
+        X: =128
+        Y: =504
+        Width: =Parent.Width - 256
+        Height: =72
+        Fill: =theme.bgSurface
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    SettingDarkLbl As label:
+        X: =152
+        Y: =516
+        Width: =400
+        Height: =24
+        Text: ="🌙 Dark Mode"
+        Color: =theme.textHi
+        Size: =14
+        FontWeight: =FontWeight.Semibold
+
+    SettingDarkSub As label:
+        X: =152
+        Y: =540
+        Width: =400
+        Height: =22
+        Text: ="Neo-futuristisches Dunkel-Theme (immer an)"
+        Color: =theme.textMid
+        Size: =11
+
+    SettingDarkToggle As toggle:
+        X: =Parent.Width - 220
+        Y: =524
+        Width: =80
+        Height: =32
+        Default: =true
+        FillSelected: =theme.cyan
+
+    SettingLangBg As rectangle:
+        X: =128
+        Y: =588
+        Width: =Parent.Width - 256
+        Height: =72
+        Fill: =theme.bgSurface
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    SettingLangLbl As label:
+        X: =152
+        Y: =600
+        Width: =400
+        Height: =24
+        Text: ="🌐 Sprache"
+        Color: =theme.textHi
+        Size: =14
+        FontWeight: =FontWeight.Semibold
+
+    SettingLangSub As label:
+        X: =152
+        Y: =624
+        Width: =400
+        Height: =22
+        Text: ="Inhalte werden mehrsprachig ausgespielt"
+        Color: =theme.textMid
+        Size: =11
+
+    SettingLangDD As dropdown:
+        X: =Parent.Width - 320
+        Y: =600
+        Width: =180
+        Height: =40
+        Items: =["Deutsch","English","Français","Español"]
+        Default: ="Deutsch"
+        Fill: =theme.bgSurfaceAlt
+        Color: =theme.textHi
+        BorderColor: =theme.borderSubtle
+
+    AboutLbl As label:
+        X: =128
+        Y: =Parent.Height - 64
+        Width: =Parent.Width - 256
+        Height: =24
+        Text: ="PS AI HUB Journey  ·  v1.0.0  ·  © Powered by Power Apps & Power Fx"
+        Color: =theme.textLo
+        Size: =11
+        Align: =Align.Center
+        Italic: =true

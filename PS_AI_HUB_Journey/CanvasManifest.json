@@ -1,0 +1,48 @@
+{
+  "FormatVersion": "1.0",
+  "App": {
+    "Type": "ClassicCanvasApp",
+    "Name": "PS AI HUB Journey",
+    "DisplayName": "PS AI HUB Journey",
+    "Description": "Zentrale Lernplattform für KI-Enablement im Unternehmen. Lernreisen zu Prompting, Frameworks, EU AI Act, Governance, Tools, Frontier LLMs, Reifegraden u.v.m. – mit Video, Podcast, PDF, PowerPoint und interaktiven Quizzes.",
+    "Author": "PS AI HUB Team",
+    "Version": "1.0.0",
+    "Locale": "de-DE",
+    "Orientation": "Landscape",
+    "FormFactor": "Tablet",
+    "ScreenWidth": 1366,
+    "ScreenHeight": 768,
+    "Theme": "PowerAppsTheme",
+    "PublishedTime": "2026-04-19T00:00:00Z"
+  },
+  "Screens": [
+    "SplashScreen",
+    "HomeScreen",
+    "JourneysScreen",
+    "JourneyDetailScreen",
+    "MediaPlayerScreen",
+    "CategoriesScreen",
+    "SearchScreen",
+    "ProgressScreen",
+    "ProfileScreen"
+  ],
+  "DataSources": [
+    { "Name": "AI_HUB_Categories",       "Type": "SharePointList" },
+    { "Name": "AI_HUB_Journeys",         "Type": "SharePointList" },
+    { "Name": "AI_HUB_Modules",          "Type": "SharePointList" },
+    { "Name": "AI_HUB_UserProgress",     "Type": "SharePointList" },
+    { "Name": "AI_HUB_Achievements",     "Type": "SharePointList" },
+    { "Name": "AI_HUB_UserAchievements", "Type": "SharePointList" },
+    { "Name": "AI_HUB_Bookmarks",        "Type": "SharePointList" },
+    { "Name": "AI_HUB_Feedback",         "Type": "SharePointList" },
+    { "Name": "Office365Users",          "Type": "Connector" },
+    { "Name": "Office365Outlook",        "Type": "Connector", "optional": true },
+    { "Name": "MicrosoftTeams",          "Type": "Connector", "optional": true }
+  ],
+  "Connectors": [
+    { "Name": "SharePoint",       "Required": true,  "Note": "Persistenter Datenspeicher" },
+    { "Name": "Office365Users",   "Required": true,  "Note": "User-Profil & Avatar" },
+    { "Name": "Office365Outlook", "Required": false, "Note": "Reminder-Mails" },
+    { "Name": "MicrosoftTeams",   "Required": false, "Note": "Adaptive Cards & Chat-Notifications" }
+  ]
+}

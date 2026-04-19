@@ -1,0 +1,96 @@
+SplashScreen As screen:
+    Fill: =theme.bgDeep
+    OnVisible: |
+        =Set(splashProgress, 0);
+        Set(splashStartTime, Now());
+
+    // Animated radial gradient background
+    BackdropGlow As rectangle:
+        X: =0
+        Y: =0
+        Width: =Parent.Width
+        Height: =Parent.Height
+        Fill: |
+            =RGBA(
+                176 + 30*Sin(Mod(splashProgress, 360)*Pi()/180),
+                38  + 50*Cos(Mod(splashProgress, 360)*Pi()/180),
+                255,
+                0.08
+            )
+        BorderColor: =Color.Transparent
+
+    // Pulsing orbital rings
+    OrbitOuter As circle:
+        X: =Parent.Width/2 - 220
+        Y: =Parent.Height/2 - 220
+        Width: =440
+        Height: =440
+        Fill: =Color.Transparent
+        BorderColor: =theme.glowPurple
+        BorderThickness: =2
+
+    OrbitMid As circle:
+        X: =Parent.Width/2 - 160
+        Y: =Parent.Height/2 - 160
+        Width: =320
+        Height: =320
+        Fill: =Color.Transparent
+        BorderColor: =theme.glowCyan
+        BorderThickness: =2
+
+    OrbitInner As circle:
+        X: =Parent.Width/2 - 100
+        Y: =Parent.Height/2 - 100
+        Width: =200
+        Height: =200
+        Fill: =theme.bgSurface
+        BorderColor: =theme.cyan
+        BorderThickness: =3
+
+    // Central PS Logo monogram
+    LogoMonogram As label:
+        X: =Parent.Width/2 - 80
+        Y: =Parent.Height/2 - 60
+        Width: =160
+        Height: =80
+        Text: ="PS"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        FontWeight: =FontWeight.Bold
+        Size: =56
+        Align: =Align.Center
+
+    AppNameLabel As label:
+        X: =0
+        Y: =Parent.Height/2 + 60
+        Width: =Parent.Width
+        Height: =40
+        Text: ="AI HUB JOURNEY"
+        Color: =theme.cyan
+        Font: =theme.fontDisplay
+        FontWeight: =FontWeight.Lighter
+        Size: =22
+        Align: =Align.Center
+
+    Tagline As label:
+        X: =0
+        Y: =Parent.Height/2 + 105
+        Width: =Parent.Width
+        Height: =30
+        Text: ="Empowering Humans · Augmenting Intelligence"
+        Color: =theme.textMid
+        Size: =13
+        Align: =Align.Center
+        Italic: =true
+
+    // Auto-navigate after 2.5s
+    LoadTimer As timer:
+        X: =-100
+        Y: =-100
+        Width: =1
+        Height: =1
+        Duration: =2500
+        AutoStart: =true
+        Repeat: =false
+        OnTimerEnd: =Set(activeNav,"Home"); Navigate(HomeScreen, ScreenTransition.Fade)
+        Visible: =false

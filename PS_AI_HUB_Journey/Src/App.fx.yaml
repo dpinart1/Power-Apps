@@ -1,0 +1,267 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |
+        =/* ============================================================
+           PS AI HUB Journey - Application Bootstrap
+           Neo-Futuristic AI Enablement Platform
+           ============================================================ */
+
+        // ---------- THEME (Neo-Futuristic Design Tokens) ----------
+        Set(
+            theme,
+            {
+                // Core palette
+                bgDeep:        ColorValue("#05060F"),  // Deep space
+                bgCanvas:      ColorValue("#0A0E27"),  // Main canvas
+                bgSurface:     ColorValue("#141833"),  // Card surface
+                bgSurfaceAlt:  ColorValue("#1B2147"),  // Elevated surface
+                bgGlass:       RGBA(20, 24, 51, 0.55), // Glassmorphism
+
+                // Neon accents
+                cyan:          ColorValue("#00E5FF"),
+                purple:        ColorValue("#B026FF"),
+                pink:          ColorValue("#FF006E"),
+                lime:          ColorValue("#39FF88"),
+                amber:         ColorValue("#FFB400"),
+
+                // Text
+                textHi:        ColorValue("#F5F8FF"),
+                textMid:       ColorValue("#B8C2E6"),
+                textLo:        ColorValue("#6B7AAE"),
+
+                // States
+                success:       ColorValue("#39FF88"),
+                warning:       ColorValue("#FFB400"),
+                danger:        ColorValue("#FF3B6B"),
+                info:          ColorValue("#00E5FF"),
+
+                // Borders & glows
+                borderSubtle:  RGBA(0, 229, 255, 0.18),
+                borderGlow:    RGBA(176, 38, 255, 0.45),
+                glowCyan:      RGBA(0, 229, 255, 0.35),
+                glowPurple:    RGBA(176, 38, 255, 0.40),
+
+                // Radii & spacing
+                radiusSm: 8,
+                radiusMd: 16,
+                radiusLg: 24,
+                radiusXl: 32,
+                spaceXs: 8,
+                spaceSm: 12,
+                spaceMd: 20,
+                spaceLg: 32,
+                spaceXl: 48,
+
+                // Typography
+                fontFamily: "'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif",
+                fontDisplay: "'Segoe UI Variable Display', 'Inter', sans-serif",
+                fzDisplay: 56,
+                fzH1: 36,
+                fzH2: 26,
+                fzH3: 20,
+                fzBody: 14,
+                fzSmall: 12
+            }
+        );
+
+        // ---------- USER CONTEXT ----------
+        Set(
+            currentUser,
+            {
+                id:        User().Email,
+                name:      User().FullName,
+                email:     User().Email,
+                avatar:    User().Image,
+                role:      "Learner",
+                points:    0,
+                level:     1,
+                streak:    0,
+                joinedOn:  Today()
+            }
+        );
+
+        // ---------- NAVIGATION STATE ----------
+        Set(activeNav, "Home");
+        Set(selectedJourney, Blank());
+        Set(selectedModule, Blank());
+        Set(selectedCategory, Blank());
+        Set(searchQuery, "");
+        Set(isMediaPlaying, false);
+
+        // ---------- CATEGORIES (Lernreise-Themen) ----------
+        ClearCollect(
+            colCategories,
+            { id: "prompting",   name: "Prompting Mastery",     icon: "Edit",         color: theme.cyan,   gradient: "linear-gradient(135deg,#00E5FF 0%,#0099FF 100%)", description: "Vom Zero-Shot zum Chain-of-Thought: präzise mit KI sprechen.", journeyCount: 0 },
+            { id: "frameworks",  name: "AI Frameworks",         icon: "DOM",          color: theme.purple, gradient: "linear-gradient(135deg,#B026FF 0%,#5E17EB 100%)", description: "RAG, ReAct, Agentic Patterns & Multi-Agent Systeme.",          journeyCount: 0 },
+            { id: "euaiact",     name: "EU AI Act",             icon: "Shield",       color: theme.amber,  gradient: "linear-gradient(135deg,#FFB400 0%,#FF6B00 100%)", description: "Regulatorik, Risiko-Klassen, Pflichten & Compliance.",          journeyCount: 0 },
+            { id: "governance",  name: "AI Governance",         icon: "Lock",         color: theme.pink,   gradient: "linear-gradient(135deg,#FF006E 0%,#A30050 100%)", description: "Policies, Ethics-Boards, Audit-Trails & Risk Mgmt.",            journeyCount: 0 },
+            { id: "tools",       name: "Tools & Plattformen",   icon: "Settings",     color: theme.lime,   gradient: "linear-gradient(135deg,#39FF88 0%,#00B85C 100%)", description: "Copilot, ChatGPT, Claude, Gemini, Midjourney & Co.",            journeyCount: 0 },
+            { id: "frontier",    name: "Frontier LLMs",         icon: "LightningBolt",color: theme.cyan,   gradient: "linear-gradient(135deg,#00E5FF 0%,#B026FF 100%)", description: "GPT-5, Claude Opus 4.7, Gemini Ultra & Open-Source-Modelle.",   journeyCount: 0 },
+            { id: "maturity",    name: "AI Reifegrade",         icon: "BarChart3",    color: theme.purple, gradient: "linear-gradient(135deg,#B026FF 0%,#FF006E 100%)", description: "Vom Experiment zur skalierten KI-Organisation.",                journeyCount: 0 },
+            { id: "usecases",    name: "Use Cases",             icon: "Lightbulb",    color: theme.amber,  gradient: "linear-gradient(135deg,#FFB400 0%,#FF006E 100%)", description: "Branchen-Showcases & implementierte Erfolgs-Stories.",          journeyCount: 0 },
+            { id: "ethics",      name: "Responsible AI",        icon: "Heart",        color: theme.pink,   gradient: "linear-gradient(135deg,#FF006E 0%,#B026FF 100%)", description: "Bias, Fairness, Transparenz & Human Oversight.",                journeyCount: 0 },
+            { id: "data",        name: "Data Foundations",      icon: "Database",     color: theme.lime,   gradient: "linear-gradient(135deg,#39FF88 0%,#00E5FF 100%)", description: "Daten als Treibstoff: Qualität, Pipelines, Vector DBs.",         journeyCount: 0 }
+        );
+
+        // ---------- LEARNING JOURNEYS (Demo-Daten - in Prod: SharePoint/Dataverse) ----------
+        ClearCollect(
+            colJourneys,
+            {
+                id: "j-001", title: "Prompt Engineering Foundations", category: "prompting", level: "Beginner",
+                duration: 120, modulesCount: 6, color: theme.cyan,
+                cover: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800",
+                tagline: "Lerne die Sprache der KI",
+                description: "Von Basics bis Advanced Prompting: Zero-Shot, Few-Shot, Chain-of-Thought und Role-Prompting.",
+                rating: 4.8, learners: 1240, isNew: false, isFeatured: true
+            },
+            {
+                id: "j-002", title: "EU AI Act in der Praxis", category: "euaiact", level: "Intermediate",
+                duration: 180, modulesCount: 8, color: theme.amber,
+                cover: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800",
+                tagline: "Compliance ohne Kopfschmerzen",
+                description: "Risikoklassen verstehen, Pflichten ableiten und Hochrisiko-Systeme rechtskonform betreiben.",
+                rating: 4.7, learners: 890, isNew: true, isFeatured: true
+            },
+            {
+                id: "j-003", title: "Frontier Model Showdown 2026", category: "frontier", level: "Advanced",
+                duration: 95, modulesCount: 5, color: theme.purple,
+                cover: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800",
+                tagline: "GPT-5 vs Claude Opus 4.7 vs Gemini Ultra",
+                description: "Benchmarks, Stärken, Schwächen und konkrete Einsatzempfehlungen pro Modell.",
+                rating: 4.9, learners: 2100, isNew: true, isFeatured: true
+            },
+            {
+                id: "j-004", title: "RAG & Agentic AI Frameworks", category: "frameworks", level: "Advanced",
+                duration: 240, modulesCount: 10, color: theme.purple,
+                cover: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800",
+                tagline: "Vom Chatbot zum autonomen Agenten",
+                description: "Retrieval-Augmented Generation, ReAct, Tool-Use, Multi-Agent-Orchestrierung.",
+                rating: 4.6, learners: 670, isNew: false, isFeatured: false
+            },
+            {
+                id: "j-005", title: "AI Governance Blueprint", category: "governance", level: "Intermediate",
+                duration: 150, modulesCount: 7, color: theme.pink,
+                cover: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800",
+                tagline: "Vertrauen by Design",
+                description: "Policies, Approval Workflows, Risiko-Register und Ethics Board aufbauen.",
+                rating: 4.5, learners: 540, isNew: false, isFeatured: false
+            },
+            {
+                id: "j-006", title: "Microsoft Copilot Power-User", category: "tools", level: "Beginner",
+                duration: 90, modulesCount: 6, color: theme.lime,
+                cover: "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?w=800",
+                tagline: "10x deine Produktivität",
+                description: "Copilot in M365, Teams, Outlook und Power Platform meisterhaft einsetzen.",
+                rating: 4.8, learners: 3200, isNew: false, isFeatured: true
+            },
+            {
+                id: "j-007", title: "AI Maturity Assessment", category: "maturity", level: "Intermediate",
+                duration: 75, modulesCount: 4, color: theme.purple,
+                cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
+                tagline: "Wo steht deine Organisation?",
+                description: "Reifegrad-Modelle, Self-Assessment & Roadmap zur skalierten KI-Organisation.",
+                rating: 4.4, learners: 410, isNew: true, isFeatured: false
+            },
+            {
+                id: "j-008", title: "Responsible AI Deep Dive", category: "ethics", level: "Advanced",
+                duration: 200, modulesCount: 9, color: theme.pink,
+                cover: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800",
+                tagline: "Ethik mit Substanz",
+                description: "Bias-Detection, Fairness-Metriken, Explainability, Human-in-the-Loop.",
+                rating: 4.7, learners: 720, isNew: false, isFeatured: false
+            },
+            {
+                id: "j-009", title: "Vector Databases & Embeddings", category: "data", level: "Advanced",
+                duration: 130, modulesCount: 6, color: theme.lime,
+                cover: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800",
+                tagline: "Das Gedächtnis deiner KI",
+                description: "Pinecone, Weaviate, Qdrant — Vector Search effektiv einsetzen.",
+                rating: 4.6, learners: 580, isNew: true, isFeatured: false
+            },
+            {
+                id: "j-010", title: "Use Case: KI in Finance", category: "usecases", level: "Intermediate",
+                duration: 160, modulesCount: 7, color: theme.amber,
+                cover: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800",
+                tagline: "Von Forecasting bis Fraud Detection",
+                description: "Echte Showcases aus Banking, Insurance und Asset Management.",
+                rating: 4.5, learners: 360, isNew: false, isFeatured: false
+            }
+        );
+
+        // ---------- MODULES (verlinkt mit Journeys) ----------
+        ClearCollect(
+            colModules,
+            // Journey j-001 - Prompt Engineering Foundations
+            { id: "m-001-1", journeyId: "j-001", order: 1, title: "Was ist ein Prompt?",          mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 12, description: "Einführung in die Anatomie eines guten Prompts." },
+            { id: "m-001-2", journeyId: "j-001", order: 2, title: "Zero-Shot vs Few-Shot",         mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 18, description: "Wann brauchst du Beispiele und wann nicht?" },
+            { id: "m-001-3", journeyId: "j-001", order: 3, title: "Chain-of-Thought erklärt",      mediaType: "Podcast",    mediaUrl: "https://traffic.libsyn.com/secure/example.mp3",   duration: 22, description: "Wie KI 'denken' lernt — Step by Step." },
+            { id: "m-001-4", journeyId: "j-001", order: 4, title: "Prompt-Templates Cheat Sheet",  mediaType: "PDF",        mediaUrl: "https://example.com/prompt-cheatsheet.pdf",       duration: 10, description: "Druckbare Vorlage für 25 Use Cases." },
+            { id: "m-001-5", journeyId: "j-001", order: 5, title: "Workshop: Live-Prompting",      mediaType: "PowerPoint", mediaUrl: "https://example.com/workshop.pptx",               duration: 45, description: "Slides für deinen internen Workshop." },
+            { id: "m-001-6", journeyId: "j-001", order: 6, title: "Quiz: Prompting Pro",            mediaType: "Quiz",       mediaUrl: "",                                                duration: 15, description: "20 Fragen, 80 % zum Bestehen." },
+
+            // Journey j-002 - EU AI Act
+            { id: "m-002-1", journeyId: "j-002", order: 1, title: "EU AI Act im Überblick",        mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 25, description: "Die wichtigsten 30 Minuten des Gesetzes." },
+            { id: "m-002-2", journeyId: "j-002", order: 2, title: "Risikoklassen verstehen",       mediaType: "Article",    mediaUrl: "https://artificialintelligenceact.eu/",            duration: 20, description: "Verboten, Hochrisiko, begrenzt, minimal." },
+            { id: "m-002-3", journeyId: "j-002", order: 3, title: "Hochrisiko-Pflichten",           mediaType: "PDF",        mediaUrl: "https://example.com/hrkpflichten.pdf",            duration: 30, description: "Konformitätsbewertung, Dokumentation, Logging." },
+            { id: "m-002-4", journeyId: "j-002", order: 4, title: "GPAI & Foundation Models",       mediaType: "Podcast",    mediaUrl: "https://traffic.libsyn.com/secure/example.mp3",   duration: 35, description: "Was bedeutet das für GPT-5 & Co?" },
+            { id: "m-002-5", journeyId: "j-002", order: 5, title: "Bußgelder & Enforcement",        mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 15, description: "Bis zu 35 Mio € — wer zahlt was?" },
+            { id: "m-002-6", journeyId: "j-002", order: 6, title: "Compliance Checkliste",          mediaType: "PDF",        mediaUrl: "https://example.com/checklist.pdf",               duration: 20, description: "Schritt-für-Schritt zur EU-AI-Act-Readiness." },
+            { id: "m-002-7", journeyId: "j-002", order: 7, title: "Praxis: AI Risk Assessment",     mediaType: "PowerPoint", mediaUrl: "https://example.com/risk-assessment.pptx",        duration: 25, description: "Template für dein Risk Register." },
+            { id: "m-002-8", journeyId: "j-002", order: 8, title: "Zertifikatsprüfung",             mediaType: "Quiz",       mediaUrl: "",                                                duration: 30, description: "30 Fragen, 90 % für Zertifikat." },
+
+            // Journey j-003 - Frontier Models
+            { id: "m-003-1", journeyId: "j-003", order: 1, title: "Welcome to 2026",                mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 8,  description: "State of Frontier Models — heute." },
+            { id: "m-003-2", journeyId: "j-003", order: 2, title: "GPT-5 Architektur Deep Dive",    mediaType: "Article",    mediaUrl: "https://openai.com/blog",                          duration: 25, description: "Was wir über GPT-5 wissen." },
+            { id: "m-003-3", journeyId: "j-003", order: 3, title: "Claude Opus 4.7 Capabilities",   mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 22, description: "1M Context, Computer Use, Extended Thinking." },
+            { id: "m-003-4", journeyId: "j-003", order: 4, title: "Gemini Ultra & Multi-Modal",     mediaType: "Podcast",    mediaUrl: "https://traffic.libsyn.com/secure/example.mp3",   duration: 28, description: "Wie Google die Aufholjagd organisiert." },
+            { id: "m-003-5", journeyId: "j-003", order: 5, title: "Benchmark-Vergleich 2026",       mediaType: "PDF",        mediaUrl: "https://example.com/benchmarks.pdf",              duration: 12, description: "MMLU, HumanEval, SWE-Bench im Vergleich." },
+
+            // Journey j-006 - Copilot
+            { id: "m-006-1", journeyId: "j-006", order: 1, title: "Copilot Aktivierung",            mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 8,  description: "Setup in 5 Minuten." },
+            { id: "m-006-2", journeyId: "j-006", order: 2, title: "Copilot in Word",                mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 14, description: "Drafts, Rewrites, Summarize." },
+            { id: "m-006-3", journeyId: "j-006", order: 3, title: "Copilot in Excel",               mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 16, description: "Formeln, Insights, Diagramme generieren." },
+            { id: "m-006-4", journeyId: "j-006", order: 4, title: "Copilot in Teams Meetings",      mediaType: "Video",      mediaUrl: "https://www.youtube.com/embed/dOxUroR57xs", duration: 12, description: "Notes, Action Items, Sentiment." },
+            { id: "m-006-5", journeyId: "j-006", order: 5, title: "Power Platform Copilot",         mediaType: "PowerPoint", mediaUrl: "https://example.com/copilot-pp.pptx",             duration: 25, description: "App per Prompt — wirklich!" },
+            { id: "m-006-6", journeyId: "j-006", order: 6, title: "Praxis-Quiz",                    mediaType: "Quiz",       mediaUrl: "",                                                duration: 10, description: "Schnelltest deiner Copilot-Skills." }
+        );
+
+        // ---------- USER PROGRESS ----------
+        ClearCollect(
+            colProgress,
+            { moduleId: "m-001-1", status: "completed", completedOn: DateAdd(Today(),-3), score: 100 },
+            { moduleId: "m-001-2", status: "completed", completedOn: DateAdd(Today(),-2), score: 95 },
+            { moduleId: "m-001-3", status: "in-progress", completedOn: Blank(), score: 0 },
+            { moduleId: "m-006-1", status: "completed", completedOn: DateAdd(Today(),-7), score: 100 },
+            { moduleId: "m-006-2", status: "completed", completedOn: DateAdd(Today(),-6), score: 100 }
+        );
+
+        // ---------- ACHIEVEMENTS / BADGES ----------
+        ClearCollect(
+            colAchievements,
+            { id: "a1", title: "First Steps",       description: "Erstes Modul abgeschlossen",         icon: "Flag",      points:  50, unlocked: true,  color: theme.cyan },
+            { id: "a2", title: "Prompt Whisperer",  description: "Prompt Foundations abgeschlossen",   icon: "Edit",      points: 200, unlocked: false, color: theme.purple },
+            { id: "a3", title: "Compliance Hero",   description: "EU AI Act Zertifikat erhalten",      icon: "Shield",    points: 500, unlocked: false, color: theme.amber },
+            { id: "a4", title: "Frontier Explorer", description: "Alle Frontier Modelle gemeistert",   icon: "Rocket",    points: 350, unlocked: false, color: theme.pink },
+            { id: "a5", title: "Streak Master",     description: "7 Tage in Folge gelernt",            icon: "FireSolid", points: 100, unlocked: false, color: theme.amber },
+            { id: "a6", title: "AI Sage",           description: "10 Journeys abgeschlossen",          icon: "Trophy",    points: 1000,unlocked: false, color: theme.lime }
+        );
+
+        // ---------- AGGREGATE STATS ----------
+        Set(stats,
+            {
+                completed:  CountIf(colProgress, status = "completed"),
+                inProgress: CountIf(colProgress, status = "in-progress"),
+                totalMinutes: Sum(
+                    Filter(colModules, moduleId in ShowColumns(Filter(colProgress, status="completed"),"moduleId")),
+                    duration
+                ),
+                points: Sum(Filter(colAchievements, unlocked), points)
+            }
+        );
+
+        Navigate(SplashScreen, ScreenTransition.Fade)
+
+    StartScreen: =SplashScreen
+    Theme: =PowerAppsTheme
+    MaxScreens: =3
+    OnError: =Notify("Etwas ist schiefgelaufen: " & FirstError.Message, NotificationType.Error)

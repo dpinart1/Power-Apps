@@ -1,0 +1,354 @@
+ProgressScreen As screen:
+    Fill: =theme.bgCanvas
+    OnVisible: =Set(activeNav,"Progress")
+
+    GlowProgA As circle:
+        X: =-200
+        Y: =-100
+        Width: =500
+        Height: =500
+        Fill: =RGBA(0,229,255,0.10)
+        BorderColor: =Color.Transparent
+
+    TopBar As rectangle:
+        X: =96
+        Y: =0
+        Width: =Parent.Width - 96
+        Height: =80
+        Fill: =RGBA(10,14,39,0.6)
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    BackBtn As button:
+        X: =128
+        Y: =22
+        Width: =40
+        Height: =36
+        Text: ="←"
+        Fill: =theme.bgSurface
+        Color: =theme.cyan
+        BorderColor: =theme.borderSubtle
+        Size: =18
+        OnSelect: =Back()
+
+    PageTitle As label:
+        X: =128
+        Y: =112
+        Width: =800
+        Height: =56
+        Text: ="Dein Lernfortschritt"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =40
+        FontWeight: =FontWeight.Bold
+
+    PageSubtitle As label:
+        X: =128
+        Y: =168
+        Width: =Parent.Width - 256
+        Height: =32
+        Text: ="Verfolge deine Reise zur KI-Exzellenz."
+        Color: =theme.textMid
+        Size: =14
+
+    // ==== STATS GRID ====
+    StatBox1 As rectangle:
+        X: =128
+        Y: =232
+        Width: =240
+        Height: =140
+        Fill: =theme.bgSurface
+        BorderColor: =theme.cyan
+        BorderThickness: =1
+
+    StatBox1Number As label:
+        X: =128
+        Y: =252
+        Width: =240
+        Height: =60
+        Text: =Text(stats.completed)
+        Color: =theme.cyan
+        Font: =theme.fontDisplay
+        Size: =48
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+
+    StatBox1Lbl As label:
+        X: =128
+        Y: =316
+        Width: =240
+        Height: =40
+        Text: ="Module abgeschlossen"
+        Color: =theme.textMid
+        Size: =13
+        Align: =Align.Center
+
+    StatBox2 As rectangle:
+        X: =384
+        Y: =232
+        Width: =240
+        Height: =140
+        Fill: =theme.bgSurface
+        BorderColor: =theme.purple
+        BorderThickness: =1
+
+    StatBox2Number As label:
+        X: =384
+        Y: =252
+        Width: =240
+        Height: =60
+        Text: =Text(stats.totalMinutes) & "m"
+        Color: =theme.purple
+        Font: =theme.fontDisplay
+        Size: =48
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+
+    StatBox2Lbl As label:
+        X: =384
+        Y: =316
+        Width: =240
+        Height: =40
+        Text: ="Lernzeit"
+        Color: =theme.textMid
+        Size: =13
+        Align: =Align.Center
+
+    StatBox3 As rectangle:
+        X: =640
+        Y: =232
+        Width: =240
+        Height: =140
+        Fill: =theme.bgSurface
+        BorderColor: =theme.amber
+        BorderThickness: =1
+
+    StatBox3Number As label:
+        X: =640
+        Y: =252
+        Width: =240
+        Height: =60
+        Text: =Text(stats.points)
+        Color: =theme.amber
+        Font: =theme.fontDisplay
+        Size: =48
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+
+    StatBox3Lbl As label:
+        X: =640
+        Y: =316
+        Width: =240
+        Height: =40
+        Text: ="XP-Punkte"
+        Color: =theme.textMid
+        Size: =13
+        Align: =Align.Center
+
+    StatBox4 As rectangle:
+        X: =896
+        Y: =232
+        Width: =240
+        Height: =140
+        Fill: =theme.bgSurface
+        BorderColor: =theme.pink
+        BorderThickness: =1
+
+    StatBox4Number As label:
+        X: =896
+        Y: =252
+        Width: =240
+        Height: =60
+        Text: =Text(currentUser.streak) & "🔥"
+        Color: =theme.pink
+        Font: =theme.fontDisplay
+        Size: =48
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+
+    StatBox4Lbl As label:
+        X: =896
+        Y: =316
+        Width: =240
+        Height: =40
+        Text: ="Tage Streak"
+        Color: =theme.textMid
+        Size: =13
+        Align: =Align.Center
+
+    // ==== IN-PROGRESS JOURNEYS ====
+    InProgressHead As label:
+        X: =128
+        Y: =400
+        Width: =500
+        Height: =40
+        Text: ="In Bearbeitung"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =22
+        FontWeight: =FontWeight.Semibold
+
+    InProgressGallery As gallery:
+        X: =128
+        Y: =452
+        Width: =Parent.Width - 256
+        Height: =180
+        TemplateSize: =320
+        Layout: =Layout.Horizontal
+        Items: |
+            =Filter(
+                colJourneys,
+                CountIf(
+                    Filter(colModules, journeyId = id),
+                    LookUp(colProgress, moduleId = id, status) = "completed"
+                ) > 0 &&
+                CountIf(
+                    Filter(colModules, journeyId = id),
+                    LookUp(colProgress, moduleId = id, status) = "completed"
+                ) < modulesCount
+            )
+        ShowScrollbar: =true
+        TemplatePadding: =12
+        Fill: =Color.Transparent
+
+        IPBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 24
+            Height: =160
+            Fill: =theme.bgSurface
+            BorderColor: =ThisItem.color
+            BorderThickness: =1
+
+        IPTitle As label:
+            X: =16
+            Y: =16
+            Width: =Parent.TemplateWidth - 56
+            Height: =44
+            Text: =ThisItem.title
+            Color: =theme.textHi
+            Size: =14
+            FontWeight: =FontWeight.Semibold
+
+        IPProgressTrack As rectangle:
+            X: =16
+            Y: =72
+            Width: =Parent.TemplateWidth - 56
+            Height: =6
+            Fill: =theme.bgSurfaceAlt
+            BorderColor: =Color.Transparent
+
+        IPProgressFill As rectangle:
+            X: =16
+            Y: =72
+            Width: |
+                =(Parent.TemplateWidth - 56) *
+                (CountIf(
+                    Filter(colModules, journeyId = ThisItem.id),
+                    LookUp(colProgress, moduleId = id, status) = "completed"
+                ) /
+                Max(ThisItem.modulesCount,1))
+            Height: =6
+            Fill: =ThisItem.color
+            BorderColor: =Color.Transparent
+
+        IPMeta As label:
+            X: =16
+            Y: =88
+            Width: =Parent.TemplateWidth - 56
+            Height: =22
+            Text: |
+                =CountIf(
+                    Filter(colModules, journeyId = ThisItem.id),
+                    LookUp(colProgress, moduleId = id, status) = "completed"
+                ) & " / " & ThisItem.modulesCount & " Module"
+            Color: =theme.textMid
+            Size: =11
+
+        IPContinue As button:
+            X: =16
+            Y: =116
+            Width: =Parent.TemplateWidth - 56
+            Height: =32
+            Text: ="Weiterlernen  →"
+            Fill: =ThisItem.color
+            Color: =theme.bgDeep
+            BorderColor: =Color.Transparent
+            Size: =11
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Set(selectedJourney, ThisItem); Navigate(JourneyDetailScreen, ScreenTransition.Fade)
+
+    // ==== ACHIEVEMENTS ====
+    AchievementsHead As label:
+        X: =128
+        Y: =660
+        Width: =500
+        Height: =40
+        Text: ="Achievements"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =22
+        FontWeight: =FontWeight.Semibold
+
+    AchievementsGallery As gallery:
+        X: =128
+        Y: =712
+        Width: =Parent.Width - 256
+        Height: =Parent.Height - 744
+        TemplateSize: =160
+        WrapCount: =6
+        Items: =colAchievements
+        ShowScrollbar: =true
+        TemplatePadding: =10
+        Fill: =Color.Transparent
+
+        AchBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 20
+            Height: =160
+            Fill: =If(ThisItem.unlocked, theme.bgSurface, theme.bgDeep)
+            BorderColor: =If(ThisItem.unlocked, ThisItem.color, theme.borderSubtle)
+            BorderThickness: =1
+
+        AchTrophy As label:
+            X: =0
+            Y: =16
+            Width: =Parent.TemplateWidth - 20
+            Height: =48
+            Text: =If(ThisItem.unlocked, "🏆", "🔒")
+            Color: =If(ThisItem.unlocked, ThisItem.color, theme.textLo)
+            Size: =32
+            Align: =Align.Center
+
+        AchTitle As label:
+            X: =8
+            Y: =68
+            Width: =Parent.TemplateWidth - 36
+            Height: =26
+            Text: =ThisItem.title
+            Color: =If(ThisItem.unlocked, theme.textHi, theme.textLo)
+            Size: =12
+            FontWeight: =FontWeight.Semibold
+            Align: =Align.Center
+
+        AchDesc As label:
+            X: =8
+            Y: =96
+            Width: =Parent.TemplateWidth - 36
+            Height: =34
+            Text: =ThisItem.description
+            Color: =theme.textMid
+            Size: =10
+            Align: =Align.Center
+
+        AchPoints As label:
+            X: =8
+            Y: =130
+            Width: =Parent.TemplateWidth - 36
+            Height: =22
+            Text: ="+" & ThisItem.points & " XP"
+            Color: =If(ThisItem.unlocked, ThisItem.color, theme.textLo)
+            Size: =11
+            FontWeight: =FontWeight.Bold
+            Align: =Align.Center

@@ -1,0 +1,68 @@
+{
+  "name": "PS AI HUB · Neo-Futuristic Dark",
+  "version": "1.0.0",
+  "description": "Designsystem-Tokens für die PS AI HUB Journey Power App. Werden zur Laufzeit über App.OnStart in die globale Variable `theme` geladen.",
+  "tokens": {
+    "color": {
+      "background": {
+        "deep":        "#05060F",
+        "canvas":      "#0A0E27",
+        "surface":     "#141833",
+        "surfaceAlt":  "#1B2147",
+        "glass":       "rgba(20,24,51,0.55)"
+      },
+      "neon": {
+        "cyan":   "#00E5FF",
+        "purple": "#B026FF",
+        "pink":   "#FF006E",
+        "lime":   "#39FF88",
+        "amber":  "#FFB400"
+      },
+      "text": {
+        "high":   "#F5F8FF",
+        "mid":    "#B8C2E6",
+        "low":    "#6B7AAE"
+      },
+      "state": {
+        "success": "#39FF88",
+        "warning": "#FFB400",
+        "danger":  "#FF3B6B",
+        "info":    "#00E5FF"
+      },
+      "border": {
+        "subtle":   "rgba(0,229,255,0.18)",
+        "glow":     "rgba(176,38,255,0.45)"
+      },
+      "glow": {
+        "cyan":   "rgba(0,229,255,0.35)",
+        "purple": "rgba(176,38,255,0.40)"
+      }
+    },
+    "radius": { "sm": 8, "md": 16, "lg": 24, "xl": 32 },
+    "spacing": { "xs": 8, "sm": 12, "md": 20, "lg": 32, "xl": 48 },
+    "typography": {
+      "fontFamily":  "'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif",
+      "fontDisplay": "'Segoe UI Variable Display', 'Inter', sans-serif",
+      "fontSize": { "display": 56, "h1": 36, "h2": 26, "h3": 20, "body": 14, "small": 12 },
+      "weight":   { "regular": 400, "semibold": 600, "bold": 700 }
+    },
+    "motion": {
+      "splash": "2.5s fade",
+      "screenTransition": "Fade",
+      "easing": "cubic-bezier(0.22, 1, 0.36, 1)"
+    },
+    "elevation": {
+      "card":     "0 4px 24px rgba(0,0,0,0.40)",
+      "floating": "0 12px 40px rgba(0,229,255,0.20)",
+      "glow":     "0 0 32px rgba(176,38,255,0.45)"
+    }
+  },
+  "principles": [
+    "Dark Canvas First — alle Inhalte leuchten gegen tiefe Dunkelheit.",
+    "Neon Accents sparsam — Highlights nur für CTA, Status, aktive Navigation.",
+    "Glassmorphism für TopBars und Overlays.",
+    "Glow & Orbital Pulses transportieren das 'Sci-Fi'-Gefühl ohne Performance-Kosten.",
+    "Type Scale ist klar hierarchisch — Display für Headlines, Body 14 für Lesbarkeit.",
+    "Corners 16-32 px für 'futuristic-soft' Feel."
+  ]
+}

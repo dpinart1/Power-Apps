@@ -1,0 +1,618 @@
+HomeScreen As screen:
+    Fill: =theme.bgCanvas
+    OnVisible: =Set(activeNav,"Home")
+
+    // ====== AMBIENT BACKDROP (Neo-futuristic glow) ======
+    GlowBlobA As circle:
+        X: =-200
+        Y: =-200
+        Width: =600
+        Height: =600
+        Fill: =RGBA(176,38,255,0.18)
+        BorderColor: =Color.Transparent
+
+    GlowBlobB As circle:
+        X: =Parent.Width - 400
+        Y: =100
+        Width: =520
+        Height: =520
+        Fill: =RGBA(0,229,255,0.12)
+        BorderColor: =Color.Transparent
+
+    // ====== LEFT SIDE NAVIGATION ======
+    SideNavBar As rectangle:
+        X: =0
+        Y: =0
+        Width: =96
+        Height: =Parent.Height
+        Fill: =theme.bgDeep
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    NavLogo As label:
+        X: =16
+        Y: =24
+        Width: =64
+        Height: =64
+        Text: ="PS"
+        Color: =theme.cyan
+        FontWeight: =FontWeight.Bold
+        Size: =26
+        Align: =Align.Center
+        Fill: =theme.bgSurface
+
+    NavHome As button:
+        X: =16
+        Y: =120
+        Width: =64
+        Height: =64
+        Text: ="🏠"
+        Fill: =If(activeNav="Home", theme.bgSurfaceAlt, Color.Transparent)
+        Color: =If(activeNav="Home", theme.cyan, theme.textMid)
+        BorderColor: =If(activeNav="Home", theme.cyan, Color.Transparent)
+        BorderThickness: =2
+        Size: =22
+        OnSelect: =Set(activeNav,"Home"); Navigate(HomeScreen, ScreenTransition.Fade)
+
+    NavJourneys As button:
+        X: =16
+        Y: =192
+        Width: =64
+        Height: =64
+        Text: ="🧭"
+        Fill: =If(activeNav="Journeys", theme.bgSurfaceAlt, Color.Transparent)
+        Color: =If(activeNav="Journeys", theme.cyan, theme.textMid)
+        BorderColor: =If(activeNav="Journeys", theme.cyan, Color.Transparent)
+        BorderThickness: =2
+        Size: =22
+        OnSelect: =Set(activeNav,"Journeys"); Navigate(JourneysScreen, ScreenTransition.Fade)
+
+    NavCategories As button:
+        X: =16
+        Y: =264
+        Width: =64
+        Height: =64
+        Text: ="🗂️"
+        Fill: =If(activeNav="Categories", theme.bgSurfaceAlt, Color.Transparent)
+        Color: =If(activeNav="Categories", theme.cyan, theme.textMid)
+        BorderColor: =If(activeNav="Categories", theme.cyan, Color.Transparent)
+        BorderThickness: =2
+        Size: =22
+        OnSelect: =Set(activeNav,"Categories"); Navigate(CategoriesScreen, ScreenTransition.Fade)
+
+    NavSearch As button:
+        X: =16
+        Y: =336
+        Width: =64
+        Height: =64
+        Text: ="🔍"
+        Fill: =If(activeNav="Search", theme.bgSurfaceAlt, Color.Transparent)
+        Color: =If(activeNav="Search", theme.cyan, theme.textMid)
+        BorderColor: =If(activeNav="Search", theme.cyan, Color.Transparent)
+        BorderThickness: =2
+        Size: =22
+        OnSelect: =Set(activeNav,"Search"); Navigate(SearchScreen, ScreenTransition.Fade)
+
+    NavProgress As button:
+        X: =16
+        Y: =408
+        Width: =64
+        Height: =64
+        Text: ="📊"
+        Fill: =If(activeNav="Progress", theme.bgSurfaceAlt, Color.Transparent)
+        Color: =If(activeNav="Progress", theme.cyan, theme.textMid)
+        BorderColor: =If(activeNav="Progress", theme.cyan, Color.Transparent)
+        BorderThickness: =2
+        Size: =22
+        OnSelect: =Set(activeNav,"Progress"); Navigate(ProgressScreen, ScreenTransition.Fade)
+
+    NavProfile As button:
+        X: =16
+        Y: =Parent.Height - 96
+        Width: =64
+        Height: =64
+        Text: ="👤"
+        Fill: =If(activeNav="Profile", theme.bgSurfaceAlt, Color.Transparent)
+        Color: =If(activeNav="Profile", theme.cyan, theme.textMid)
+        BorderColor: =If(activeNav="Profile", theme.cyan, Color.Transparent)
+        BorderThickness: =2
+        Size: =22
+        OnSelect: =Set(activeNav,"Profile"); Navigate(ProfileScreen, ScreenTransition.Fade)
+
+    // ====== TOP BAR ======
+    TopBar As rectangle:
+        X: =96
+        Y: =0
+        Width: =Parent.Width - 96
+        Height: =80
+        Fill: =RGBA(10,14,39,0.6)
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    BreadcrumbLabel As label:
+        X: =128
+        Y: =0
+        Width: =400
+        Height: =80
+        Text: ="PS AI HUB · Home"
+        Color: =theme.textMid
+        Size: =13
+        VerticalAlign: =VerticalAlign.Middle
+
+    SearchTopBar As textInput:
+        X: =Parent.Width - 520
+        Y: =22
+        Width: =320
+        Height: =36
+        HintText: ="Suche Journeys, Tools, Themen..."
+        Default: =""
+        Fill: =theme.bgSurface
+        Color: =theme.textHi
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+        Size: =12
+        OnChange: =Set(searchQuery, Self.Text)
+
+    SearchGoBtn As button:
+        X: =Parent.Width - 196
+        Y: =22
+        Width: =40
+        Height: =36
+        Text: ="→"
+        Fill: =theme.cyan
+        Color: =theme.bgDeep
+        BorderColor: =Color.Transparent
+        Size: =16
+        FontWeight: =FontWeight.Bold
+        OnSelect: =Navigate(SearchScreen, ScreenTransition.Fade)
+
+    UserAvatarBg As circle:
+        X: =Parent.Width - 140
+        Y: =20
+        Width: =40
+        Height: =40
+        Fill: =theme.purple
+
+    UserInitials As label:
+        X: =Parent.Width - 140
+        Y: =20
+        Width: =40
+        Height: =40
+        Text: =Left(currentUser.name,1) & Mid(currentUser.name, Find(" ",currentUser.name & " ")+1, 1)
+        Color: =theme.textHi
+        Size: =14
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+        VerticalAlign: =VerticalAlign.Middle
+
+    UserNameLbl As label:
+        X: =Parent.Width - 90
+        Y: =20
+        Width: =80
+        Height: =40
+        Text: =First(Split(currentUser.name," ")).Result
+        Color: =theme.textHi
+        Size: =13
+        FontWeight: =FontWeight.Semibold
+        VerticalAlign: =VerticalAlign.Middle
+
+    // ====== SCROLLABLE CONTENT GALLERY ======
+    ContentScroll As gallery:
+        X: =96
+        Y: =80
+        Width: =Parent.Width - 96
+        Height: =Parent.Height - 80
+        TemplateSize: =1400
+        Items: =[1]
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        Fill: =Color.Transparent
+
+        // ====== HERO SECTION ======
+        HeroBg As rectangle:
+            X: =32
+            Y: =32
+            Width: =Parent.Width - 64
+            Height: =320
+            Fill: =theme.bgSurface
+            BorderColor: =theme.borderSubtle
+            BorderThickness: =1
+
+        HeroGlowAccent As rectangle:
+            X: =32
+            Y: =32
+            Width: =4
+            Height: =320
+            Fill: =theme.cyan
+            BorderColor: =Color.Transparent
+
+        HeroEyebrow As label:
+            X: =64
+            Y: =64
+            Width: =400
+            Height: =24
+            Text: ="✦ WELCOME BACK"
+            Color: =theme.cyan
+            Size: =11
+            FontWeight: =FontWeight.Bold
+
+        HeroGreeting As label:
+            X: =64
+            Y: =92
+            Width: =Parent.Width - 128
+            Height: =60
+            Text: ="Hallo " & First(Split(currentUser.name," ")).Result & " 👋"
+            Color: =theme.textHi
+            Font: =theme.fontDisplay
+            Size: =42
+            FontWeight: =FontWeight.Bold
+
+        HeroSubtitle As label:
+            X: =64
+            Y: =160
+            Width: =Parent.Width - 128
+            Height: =60
+            Text: ="Bereit für dein nächstes Level KI-Kompetenz? Starte deine Journey, vertiefe Tools oder navigiere durch den EU AI Act — alles an einem Ort."
+            Color: =theme.textMid
+            Size: =16
+
+        HeroStatCard1 As rectangle:
+            X: =64
+            Y: =244
+            Width: =180
+            Height: =80
+            Fill: =theme.bgSurfaceAlt
+            BorderColor: =theme.borderSubtle
+            BorderThickness: =1
+
+        HeroStat1Number As label:
+            X: =80
+            Y: =252
+            Width: =160
+            Height: =36
+            Text: =Text(stats.completed)
+            Color: =theme.cyan
+            Font: =theme.fontDisplay
+            Size: =28
+            FontWeight: =FontWeight.Bold
+
+        HeroStat1Label As label:
+            X: =80
+            Y: =290
+            Width: =160
+            Height: =24
+            Text: ="Module abgeschlossen"
+            Color: =theme.textMid
+            Size: =11
+
+        HeroStatCard2 As rectangle:
+            X: =256
+            Y: =244
+            Width: =180
+            Height: =80
+            Fill: =theme.bgSurfaceAlt
+            BorderColor: =theme.borderSubtle
+            BorderThickness: =1
+
+        HeroStat2Number As label:
+            X: =272
+            Y: =252
+            Width: =160
+            Height: =36
+            Text: =Text(stats.totalMinutes) & "m"
+            Color: =theme.purple
+            Font: =theme.fontDisplay
+            Size: =28
+            FontWeight: =FontWeight.Bold
+
+        HeroStat2Label As label:
+            X: =272
+            Y: =290
+            Width: =160
+            Height: =24
+            Text: ="Lernzeit"
+            Color: =theme.textMid
+            Size: =11
+
+        HeroStatCard3 As rectangle:
+            X: =448
+            Y: =244
+            Width: =180
+            Height: =80
+            Fill: =theme.bgSurfaceAlt
+            BorderColor: =theme.borderSubtle
+            BorderThickness: =1
+
+        HeroStat3Number As label:
+            X: =464
+            Y: =252
+            Width: =160
+            Height: =36
+            Text: =Text(stats.points)
+            Color: =theme.amber
+            Font: =theme.fontDisplay
+            Size: =28
+            FontWeight: =FontWeight.Bold
+
+        HeroStat3Label As label:
+            X: =464
+            Y: =290
+            Width: =160
+            Height: =24
+            Text: ="XP-Punkte"
+            Color: =theme.textMid
+            Size: =11
+
+        HeroCTA As button:
+            X: =Parent.Width - 280
+            Y: =264
+            Width: =200
+            Height: =56
+            Text: ="Weiterlernen  →"
+            Fill: =theme.cyan
+            Color: =theme.bgDeep
+            BorderColor: =Color.Transparent
+            Size: =14
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Set(selectedJourney, LookUp(colJourneys, id="j-001")); Navigate(JourneyDetailScreen, ScreenTransition.Fade)
+
+        // ====== FEATURED JOURNEYS HEADING ======
+        FeaturedHeading As label:
+            X: =32
+            Y: =392
+            Width: =500
+            Height: =40
+            Text: ="✦ Featured Journeys"
+            Color: =theme.textHi
+            Font: =theme.fontDisplay
+            Size: =24
+            FontWeight: =FontWeight.Semibold
+
+        FeaturedSubheading As label:
+            X: =32
+            Y: =432
+            Width: =800
+            Height: =24
+            Text: ="Kuratierte Lernreisen — handverlesen für maximale Wirkung."
+            Color: =theme.textMid
+            Size: =13
+
+        SeeAllFeatured As button:
+            X: =Parent.Width - 200
+            Y: =400
+            Width: =160
+            Height: =36
+            Text: ="Alle ansehen  →"
+            Fill: =Color.Transparent
+            Color: =theme.cyan
+            BorderColor: =theme.cyan
+            BorderThickness: =1
+            Size: =12
+            OnSelect: =Set(activeNav,"Journeys"); Navigate(JourneysScreen, ScreenTransition.Fade)
+
+        // ====== FEATURED CARDS GALLERY ======
+        FeaturedGallery As gallery:
+            X: =32
+            Y: =480
+            Width: =Parent.Width - 64
+            Height: =320
+            TemplateSize: =320
+            Layout: =Layout.Horizontal
+            Items: =Filter(colJourneys, isFeatured = true)
+            ShowScrollbar: =true
+            TemplatePadding: =12
+            Fill: =Color.Transparent
+
+            CardBg As rectangle:
+                X: =0
+                Y: =0
+                Width: =Parent.TemplateWidth - 24
+                Height: =300
+                Fill: =theme.bgSurface
+                BorderColor: =theme.borderSubtle
+                BorderThickness: =1
+
+            CardCover As image:
+                X: =0
+                Y: =0
+                Width: =Parent.TemplateWidth - 24
+                Height: =160
+                Image: =ThisItem.cover
+                ImagePosition: =ImagePosition.Fill
+
+            CardOverlay As rectangle:
+                X: =0
+                Y: =0
+                Width: =Parent.TemplateWidth - 24
+                Height: =160
+                Fill: =RGBA(10,14,39,0.45)
+                BorderColor: =Color.Transparent
+
+            CardLevelTag As label:
+                X: =16
+                Y: =16
+                Width: =100
+                Height: =26
+                Text: =ThisItem.level
+                Color: =theme.bgDeep
+                Fill: =ThisItem.color
+                Size: =10
+                FontWeight: =FontWeight.Bold
+                Align: =Align.Center
+                VerticalAlign: =VerticalAlign.Middle
+
+            CardNewBadge As label:
+                X: =Parent.TemplateWidth - 88
+                Y: =16
+                Width: =60
+                Height: =26
+                Text: ="NEW"
+                Color: =theme.bgDeep
+                Fill: =theme.lime
+                Size: =10
+                FontWeight: =FontWeight.Bold
+                Align: =Align.Center
+                VerticalAlign: =VerticalAlign.Middle
+                Visible: =ThisItem.isNew
+
+            CardTitle As label:
+                X: =16
+                Y: =176
+                Width: =Parent.TemplateWidth - 56
+                Height: =50
+                Text: =ThisItem.title
+                Color: =theme.textHi
+                Size: =16
+                FontWeight: =FontWeight.Semibold
+
+            CardTagline As label:
+                X: =16
+                Y: =228
+                Width: =Parent.TemplateWidth - 56
+                Height: =22
+                Text: =ThisItem.tagline
+                Color: =theme.cyan
+                Size: =11
+                Italic: =true
+
+            CardMetaDuration As label:
+                X: =16
+                Y: =258
+                Width: =100
+                Height: =20
+                Text: ="⏱ " & ThisItem.duration & " min"
+                Color: =theme.textLo
+                Size: =11
+
+            CardMetaModules As label:
+                X: =120
+                Y: =258
+                Width: =100
+                Height: =20
+                Text: ="📚 " & ThisItem.modulesCount & " Module"
+                Color: =theme.textLo
+                Size: =11
+
+            CardMetaRating As label:
+                X: =Parent.TemplateWidth - 84
+                Y: =258
+                Width: =60
+                Height: =20
+                Text: ="★ " & Text(ThisItem.rating,"#.0")
+                Color: =theme.amber
+                Size: =11
+                FontWeight: =FontWeight.Bold
+
+            CardClickArea As button:
+                X: =0
+                Y: =0
+                Width: =Parent.TemplateWidth - 24
+                Height: =300
+                Text: =""
+                Fill: =Color.Transparent
+                BorderColor: =Color.Transparent
+                OnSelect: =Set(selectedJourney, ThisItem); Navigate(JourneyDetailScreen, ScreenTransition.Fade)
+
+        // ====== CATEGORIES HEADING ======
+        CategoriesHeading As label:
+            X: =32
+            Y: =840
+            Width: =500
+            Height: =40
+            Text: ="✦ Lernbereiche"
+            Color: =theme.textHi
+            Font: =theme.fontDisplay
+            Size: =24
+            FontWeight: =FontWeight.Semibold
+
+        CategoriesSubheading As label:
+            X: =32
+            Y: =880
+            Width: =800
+            Height: =24
+            Text: ="10 Themenwelten — von Prompting bis Frontier LLMs."
+            Color: =theme.textMid
+            Size: =13
+
+        // ====== CATEGORY CARDS GALLERY ======
+        CategoryGrid As gallery:
+            X: =32
+            Y: =928
+            Width: =Parent.Width - 64
+            Height: =440
+            TemplateSize: =200
+            WrapCount: =5
+            Items: =colCategories
+            ShowScrollbar: =false
+            TemplatePadding: =10
+            Fill: =Color.Transparent
+
+            CatBg As rectangle:
+                X: =0
+                Y: =0
+                Width: =Parent.TemplateWidth - 20
+                Height: =200
+                Fill: =theme.bgSurface
+                BorderColor: =ThisItem.color
+                BorderThickness: =1
+
+            CatGlowTop As rectangle:
+                X: =0
+                Y: =0
+                Width: =Parent.TemplateWidth - 20
+                Height: =4
+                Fill: =ThisItem.color
+                BorderColor: =Color.Transparent
+
+            CatIconCircle As circle:
+                X: =16
+                Y: =20
+                Width: =56
+                Height: =56
+                Fill: =RGBA(0,229,255,0.15)
+                BorderColor: =ThisItem.color
+                BorderThickness: =1
+
+            CatIconLbl As label:
+                X: =16
+                Y: =20
+                Width: =56
+                Height: =56
+                Text: ="✦"
+                Color: =ThisItem.color
+                Size: =26
+                Align: =Align.Center
+                VerticalAlign: =VerticalAlign.Middle
+                FontWeight: =FontWeight.Bold
+
+            CatName As label:
+                X: =16
+                Y: =92
+                Width: =Parent.TemplateWidth - 52
+                Height: =28
+                Text: =ThisItem.name
+                Color: =theme.textHi
+                Size: =14
+                FontWeight: =FontWeight.Semibold
+
+            CatDesc As label:
+                X: =16
+                Y: =124
+                Width: =Parent.TemplateWidth - 52
+                Height: =60
+                Text: =ThisItem.description
+                Color: =theme.textMid
+                Size: =11
+
+            CatClickArea As button:
+                X: =0
+                Y: =0
+                Width: =Parent.TemplateWidth - 20
+                Height: =200
+                Text: =""
+                Fill: =Color.Transparent
+                BorderColor: =Color.Transparent
+                OnSelect: |
+                    =Set(selectedCategory, ThisItem);
+                    Set(activeNav,"Journeys");
+                    Navigate(JourneysScreen, ScreenTransition.Fade)

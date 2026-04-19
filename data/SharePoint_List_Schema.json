@@ -1,0 +1,161 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/list-formatting.schema.json",
+  "description": "Schemata für die SharePoint-Listen, die PS AI HUB Journey befüllen. Lege je eine Liste pro Eintrag an oder nutze Dataverse-Tabellen mit identischen Spalten.",
+
+  "lists": [
+    {
+      "listName": "AI_HUB_Categories",
+      "description": "Themengebiete der KI-Lernreisen",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 100, "note": "Anzeigename, z.B. 'Prompting Mastery'" },
+        { "name": "CategoryId",     "type": "Text",         "required": true,  "maxLength": 50,  "note": "Slug, z.B. 'prompting'" },
+        { "name": "Icon",           "type": "Text",         "required": false, "maxLength": 50,  "note": "Fluent UI Icon-Name oder Emoji" },
+        { "name": "AccentColor",    "type": "Text",         "required": false, "maxLength": 20,  "note": "Hex-Code für Akzent (#00E5FF)" },
+        { "name": "Gradient",       "type": "Text",         "required": false, "maxLength": 200, "note": "CSS-Gradient für Karten" },
+        { "name": "Description",    "type": "Note",         "required": false, "note": "Kurzer Erklärtext" },
+        { "name": "SortOrder",      "type": "Number",       "required": false, "default": 100 },
+        { "name": "IsActive",       "type": "Boolean",      "required": false, "default": true }
+      ]
+    },
+
+    {
+      "listName": "AI_HUB_Journeys",
+      "description": "Lernreisen / Learning Paths",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 200 },
+        { "name": "JourneyId",      "type": "Text",         "required": true,  "maxLength": 50, "note": "z.B. 'j-001'" },
+        { "name": "Tagline",        "type": "Text",         "required": false, "maxLength": 200 },
+        { "name": "Description",    "type": "Note",         "required": true },
+        { "name": "Category",       "type": "Lookup",       "required": true,  "lookupList": "AI_HUB_Categories", "lookupField": "CategoryId" },
+        { "name": "Level",          "type": "Choice",       "required": true,  "choices": ["Beginner","Intermediate","Advanced","Expert"] },
+        { "name": "DurationMinutes","type": "Number",       "required": true },
+        { "name": "ModulesCount",   "type": "Number",       "required": true },
+        { "name": "CoverImageUrl",  "type": "Text",         "required": false, "maxLength": 500 },
+        { "name": "AccentColor",    "type": "Text",         "required": false, "maxLength": 20  },
+        { "name": "Rating",         "type": "Number",       "required": false, "decimals": 1, "min": 0, "max": 5 },
+        { "name": "Learners",       "type": "Number",       "required": false, "default": 0 },
+        { "name": "IsNew",          "type": "Boolean",      "required": false, "default": false },
+        { "name": "IsFeatured",     "type": "Boolean",      "required": false, "default": false },
+        { "name": "Author",         "type": "Person",       "required": false },
+        { "name": "Tags",           "type": "MultiChoice",  "required": false, "choices": ["Compliance","Hands-On","Strategy","Tooling","Workshop","Zertifikat"] },
+        { "name": "PublishedOn",    "type": "DateTime",     "required": false }
+      ]
+    },
+
+    {
+      "listName": "AI_HUB_Modules",
+      "description": "Einzelne Lernmodule innerhalb einer Journey",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 200 },
+        { "name": "ModuleId",       "type": "Text",         "required": true,  "maxLength": 50 },
+        { "name": "Journey",        "type": "Lookup",       "required": true,  "lookupList": "AI_HUB_Journeys", "lookupField": "JourneyId" },
+        { "name": "SortOrder",      "type": "Number",       "required": true,  "default": 1 },
+        { "name": "MediaType",      "type": "Choice",       "required": true,  "choices": ["Video","Podcast","PDF","PowerPoint","Article","Quiz","Image","Code","ExternalLink"] },
+        { "name": "MediaUrl",       "type": "Text",         "required": false, "maxLength": 1000, "note": "Full URL — bei Quiz leer lassen" },
+        { "name": "DurationMinutes","type": "Number",       "required": true },
+        { "name": "Description",    "type": "Note",         "required": false },
+        { "name": "Transcript",     "type": "Note",         "required": false, "note": "Optional für Accessibility (Video/Podcast)" },
+        { "name": "DownloadAllowed","type": "Boolean",      "required": false, "default": true },
+        { "name": "QuizQuestionsJson","type": "Note",       "required": false, "note": "JSON-Array mit Fragen (nur MediaType=Quiz)" }
+      ]
+    },
+
+    {
+      "listName": "AI_HUB_UserProgress",
+      "description": "Persistierter Fortschritt pro User & Modul",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 200, "note": "User-Email + ModuleId für Eindeutigkeit" },
+        { "name": "User",           "type": "Person",       "required": true },
+        { "name": "Module",         "type": "Lookup",       "required": true,  "lookupList": "AI_HUB_Modules", "lookupField": "ModuleId" },
+        { "name": "Status",         "type": "Choice",       "required": true,  "choices": ["not-started","in-progress","completed"], "default": "not-started" },
+        { "name": "ProgressPercent","type": "Number",       "required": false, "default": 0, "min": 0, "max": 100 },
+        { "name": "Score",          "type": "Number",       "required": false, "default": 0 },
+        { "name": "StartedOn",      "type": "DateTime",     "required": false },
+        { "name": "CompletedOn",    "type": "DateTime",     "required": false },
+        { "name": "TimeSpentSec",   "type": "Number",       "required": false, "default": 0 }
+      ]
+    },
+
+    {
+      "listName": "AI_HUB_Achievements",
+      "description": "Badges & Trophies",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 100 },
+        { "name": "AchievementId",  "type": "Text",         "required": true,  "maxLength": 50 },
+        { "name": "Description",    "type": "Note",         "required": true },
+        { "name": "Icon",           "type": "Text",         "required": false, "maxLength": 50 },
+        { "name": "AccentColor",    "type": "Text",         "required": false, "maxLength": 20 },
+        { "name": "PointsReward",   "type": "Number",       "required": true,  "default": 50 },
+        { "name": "RuleType",       "type": "Choice",       "required": true,  "choices": ["FirstModule","CompleteJourney","StreakDays","TotalPoints","Certification"] },
+        { "name": "RuleValue",      "type": "Text",         "required": false, "maxLength": 100, "note": "z.B. JourneyId oder Anzahl Tage" }
+      ]
+    },
+
+    {
+      "listName": "AI_HUB_UserAchievements",
+      "description": "Welche User welche Achievements freigeschaltet haben",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 200 },
+        { "name": "User",           "type": "Person",       "required": true },
+        { "name": "Achievement",    "type": "Lookup",       "required": true,  "lookupList": "AI_HUB_Achievements", "lookupField": "AchievementId" },
+        { "name": "UnlockedOn",     "type": "DateTime",     "required": true },
+        { "name": "PointsAwarded",  "type": "Number",       "required": true }
+      ]
+    },
+
+    {
+      "listName": "AI_HUB_Bookmarks",
+      "description": "User-Bookmarks für Journeys und Module",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 200 },
+        { "name": "User",           "type": "Person",       "required": true },
+        { "name": "TargetType",     "type": "Choice",       "required": true,  "choices": ["Journey","Module"] },
+        { "name": "TargetId",       "type": "Text",         "required": true,  "maxLength": 50 },
+        { "name": "CreatedOn",      "type": "DateTime",     "required": true }
+      ]
+    },
+
+    {
+      "listName": "AI_HUB_Feedback",
+      "description": "User-Feedback zu Modulen & Journeys",
+      "columns": [
+        { "name": "Title",          "type": "Text",         "required": true,  "maxLength": 200 },
+        { "name": "User",           "type": "Person",       "required": true },
+        { "name": "TargetType",     "type": "Choice",       "required": true,  "choices": ["Journey","Module","App"] },
+        { "name": "TargetId",       "type": "Text",         "required": false, "maxLength": 50 },
+        { "name": "Rating",         "type": "Number",       "required": true,  "min": 1, "max": 5 },
+        { "name": "Comment",        "type": "Note",         "required": false }
+      ]
+    }
+  ],
+
+  "powerAutomateFlows": [
+    {
+      "name": "PS-AIHUB-OnModuleComplete",
+      "trigger": "PowerApps (V2) — moduleId, userEmail, score",
+      "actions": [
+        "Patch AI_HUB_UserProgress (status=completed, completedOn=utcNow(), score)",
+        "Increment User XP (Patch AI_HUB_UserAchievements oder Office365 Profile)",
+        "Send Adaptive Card to User (Teams) — Modul abgeschlossen + nächste Empfehlung",
+        "Evaluate Achievement-Rules (FirstModule, CompleteJourney, StreakDays)"
+      ]
+    },
+    {
+      "name": "PS-AIHUB-DailyDigest",
+      "trigger": "Recurrence — Mo-Fr 08:00",
+      "actions": [
+        "Get all users active in last 7d",
+        "Apply to each: Compose personalized 'Pick of the day' (LLM-Call optional)",
+        "Send Teams Card mit 1 Modul-Empfehlung"
+      ]
+    },
+    {
+      "name": "PS-AIHUB-NewContentNotify",
+      "trigger": "When item created in AI_HUB_Journeys with IsNew=true",
+      "actions": [
+        "Post in 'AI Enablement' Teams-Kanal",
+        "Channel-Banner aktualisieren"
+      ]
+    }
+  ]
+}

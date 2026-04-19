@@ -1,0 +1,335 @@
+JourneyDetailScreen As screen:
+    Fill: =theme.bgCanvas
+    OnVisible: =Set(activeNav,"Journeys")
+
+    // Hero cover
+    HeroImg As image:
+        X: =0
+        Y: =0
+        Width: =Parent.Width
+        Height: =440
+        Image: =selectedJourney.cover
+        ImagePosition: =ImagePosition.Fill
+
+    HeroOverlay As rectangle:
+        X: =0
+        Y: =0
+        Width: =Parent.Width
+        Height: =440
+        Fill: =RGBA(5,6,15,0.78)
+        BorderColor: =Color.Transparent
+
+    HeroGradientLine As rectangle:
+        X: =0
+        Y: =438
+        Width: =Parent.Width
+        Height: =2
+        Fill: =selectedJourney.color
+        BorderColor: =Color.Transparent
+
+    BackBtn As button:
+        X: =32
+        Y: =32
+        Width: =56
+        Height: =40
+        Text: ="← Zurück"
+        Fill: =RGBA(20,24,51,0.7)
+        Color: =theme.textHi
+        BorderColor: =theme.borderSubtle
+        Size: =11
+        OnSelect: =Back()
+
+    HeroEyebrow As label:
+        X: =32
+        Y: =120
+        Width: =400
+        Height: =24
+        Text: ="✦ " & Upper(LookUp(colCategories, id = selectedJourney.category, name))
+        Color: =selectedJourney.color
+        Size: =12
+        FontWeight: =FontWeight.Bold
+
+    HeroTitle As label:
+        X: =32
+        Y: =152
+        Width: =Parent.Width - 64
+        Height: =80
+        Text: =selectedJourney.title
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =48
+        FontWeight: =FontWeight.Bold
+
+    HeroTagline As label:
+        X: =32
+        Y: =236
+        Width: =Parent.Width - 64
+        Height: =32
+        Text: =selectedJourney.tagline
+        Color: =selectedJourney.color
+        Size: =18
+        Italic: =true
+
+    HeroDescription As label:
+        X: =32
+        Y: =280
+        Width: =Parent.Width - 64
+        Height: =60
+        Text: =selectedJourney.description
+        Color: =theme.textMid
+        Size: =14
+
+    HeroMeta As label:
+        X: =32
+        Y: =356
+        Width: =Parent.Width - 64
+        Height: =28
+        Text: ="⏱ " & selectedJourney.duration & " min   ·   📚 " & selectedJourney.modulesCount & " Module   ·   ★ " & Text(selectedJourney.rating,"#.0") & " (" & selectedJourney.learners & " Lerner)   ·   🎓 " & selectedJourney.level
+        Color: =theme.textHi
+        Size: =13
+
+    StartJourneyBtn As button:
+        X: =32
+        Y: =392
+        Width: =220
+        Height: =48
+        Text: ="▶  Journey starten"
+        Fill: =selectedJourney.color
+        Color: =theme.bgDeep
+        BorderColor: =Color.Transparent
+        Size: =14
+        FontWeight: =FontWeight.Bold
+        OnSelect: |
+            =Set(
+                selectedModule,
+                First(Sort(Filter(colModules, journeyId = selectedJourney.id), order))
+            );
+            Navigate(MediaPlayerScreen, ScreenTransition.Fade)
+
+    BookmarkBtn As button:
+        X: =264
+        Y: =392
+        Width: =48
+        Height: =48
+        Text: ="☆"
+        Fill: =theme.bgSurface
+        Color: =theme.amber
+        BorderColor: =theme.borderSubtle
+        Size: =22
+        OnSelect: =Notify("Zu deinen Bookmarks hinzugefügt!", NotificationType.Success)
+
+    ShareBtn As button:
+        X: =320
+        Y: =392
+        Width: =48
+        Height: =48
+        Text: ="↗"
+        Fill: =theme.bgSurface
+        Color: =theme.cyan
+        BorderColor: =theme.borderSubtle
+        Size: =22
+        OnSelect: =Notify("Link in Zwischenablage kopiert!", NotificationType.Information)
+
+    // ====== MODULE LIST ======
+    ModulesHeading As label:
+        X: =32
+        Y: =480
+        Width: =400
+        Height: =40
+        Text: ="Module"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =26
+        FontWeight: =FontWeight.Semibold
+
+    ProgressBarBg As rectangle:
+        X: =Parent.Width - 332
+        Y: =496
+        Width: =300
+        Height: =10
+        Fill: =theme.bgSurface
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    ProgressBarFill As rectangle:
+        X: =Parent.Width - 332
+        Y: =496
+        Width: |
+            =300 *
+            (CountIf(
+                colModules,
+                journeyId = selectedJourney.id &&
+                LookUp(colProgress, moduleId = id, status) = "completed"
+            ) /
+             Max(CountIf(colModules, journeyId = selectedJourney.id),1))
+        Height: =10
+        Fill: =selectedJourney.color
+        BorderColor: =Color.Transparent
+
+    ProgressLabel As label:
+        X: =Parent.Width - 332
+        Y: =510
+        Width: =300
+        Height: =20
+        Text: |
+            =Text(
+                CountIf(
+                    colModules,
+                    journeyId = selectedJourney.id &&
+                    LookUp(colProgress, moduleId = id, status) = "completed"
+                )
+            ) & " von " & CountIf(colModules, journeyId = selectedJourney.id) & " Modulen abgeschlossen"
+        Color: =theme.textMid
+        Size: =11
+        Align: =Align.End
+
+    ModulesGallery As gallery:
+        X: =32
+        Y: =540
+        Width: =Parent.Width - 64
+        Height: =Parent.Height - 572
+        TemplateSize: =96
+        Items: =Sort(Filter(colModules, journeyId = selectedJourney.id), order)
+        ShowScrollbar: =true
+        TemplatePadding: =6
+        Fill: =Color.Transparent
+
+        ModuleRowBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 12
+            Height: =84
+            Fill: =theme.bgSurface
+            BorderColor: |
+                =If(
+                    LookUp(colProgress, moduleId = ThisItem.id, status) = "completed",
+                    theme.success,
+                    theme.borderSubtle
+                )
+            BorderThickness: =1
+
+        ModuleAccent As rectangle:
+            X: =0
+            Y: =0
+            Width: =4
+            Height: =84
+            Fill: =selectedJourney.color
+            BorderColor: =Color.Transparent
+
+        ModuleOrderCircle As circle:
+            X: =24
+            Y: =22
+            Width: =40
+            Height: =40
+            Fill: =theme.bgSurfaceAlt
+            BorderColor: =selectedJourney.color
+            BorderThickness: =2
+
+        ModuleOrderLbl As label:
+            X: =24
+            Y: =22
+            Width: =40
+            Height: =40
+            Text: =Text(ThisItem.order)
+            Color: =theme.textHi
+            Size: =14
+            FontWeight: =FontWeight.Bold
+            Align: =Align.Center
+            VerticalAlign: =VerticalAlign.Middle
+
+        ModuleMediaTypeIcon As label:
+            X: =80
+            Y: =22
+            Width: =40
+            Height: =40
+            Text: |
+                =Switch(
+                    ThisItem.mediaType,
+                    "Video",      "🎬",
+                    "Podcast",    "🎧",
+                    "PDF",        "📄",
+                    "PowerPoint", "📊",
+                    "Article",    "📰",
+                    "Quiz",       "🧠",
+                    "•"
+                )
+            Color: =theme.textHi
+            Size: =22
+            Align: =Align.Center
+            VerticalAlign: =VerticalAlign.Middle
+
+        ModuleTitleLbl As label:
+            X: =136
+            Y: =16
+            Width: =Parent.TemplateWidth - 360
+            Height: =28
+            Text: =ThisItem.title
+            Color: =theme.textHi
+            Size: =14
+            FontWeight: =FontWeight.Semibold
+
+        ModuleDescLbl As label:
+            X: =136
+            Y: =44
+            Width: =Parent.TemplateWidth - 360
+            Height: =28
+            Text: =ThisItem.description
+            Color: =theme.textMid
+            Size: =11
+
+        ModuleDurationLbl As label:
+            X: =Parent.TemplateWidth - 220
+            Y: =22
+            Width: =80
+            Height: =40
+            Text: ="⏱ " & ThisItem.duration & "m"
+            Color: =theme.textLo
+            Size: =11
+            VerticalAlign: =VerticalAlign.Middle
+
+        ModuleStatusBadge As label:
+            X: =Parent.TemplateWidth - 132
+            Y: =26
+            Width: =60
+            Height: =32
+            Text: |
+                =Switch(
+                    LookUp(colProgress, moduleId = ThisItem.id, status),
+                    "completed",  "✓",
+                    "in-progress","◐",
+                    "○"
+                )
+            Color: |
+                =Switch(
+                    LookUp(colProgress, moduleId = ThisItem.id, status),
+                    "completed",  theme.success,
+                    "in-progress",theme.amber,
+                    theme.textLo
+                )
+            Size: =22
+            Align: =Align.Center
+            VerticalAlign: =VerticalAlign.Middle
+            FontWeight: =FontWeight.Bold
+
+        ModulePlayBtn As button:
+            X: =Parent.TemplateWidth - 64
+            Y: =22
+            Width: =40
+            Height: =40
+            Text: ="▶"
+            Fill: =selectedJourney.color
+            Color: =theme.bgDeep
+            BorderColor: =Color.Transparent
+            Size: =14
+            FontWeight: =FontWeight.Bold
+            OnSelect: =Set(selectedModule, ThisItem); Navigate(MediaPlayerScreen, ScreenTransition.Fade)
+
+        ModuleRowClick As button:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 84
+            Height: =84
+            Text: =""
+            Fill: =Color.Transparent
+            BorderColor: =Color.Transparent
+            OnSelect: =Set(selectedModule, ThisItem); Navigate(MediaPlayerScreen, ScreenTransition.Fade)

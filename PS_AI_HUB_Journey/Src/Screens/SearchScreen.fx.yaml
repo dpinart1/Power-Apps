@@ -1,0 +1,225 @@
+SearchScreen As screen:
+    Fill: =theme.bgCanvas
+    OnVisible: =Set(activeNav,"Search")
+
+    TopBar As rectangle:
+        X: =96
+        Y: =0
+        Width: =Parent.Width - 96
+        Height: =80
+        Fill: =RGBA(10,14,39,0.6)
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    BackBtn As button:
+        X: =128
+        Y: =22
+        Width: =40
+        Height: =36
+        Text: ="←"
+        Fill: =theme.bgSurface
+        Color: =theme.cyan
+        BorderColor: =theme.borderSubtle
+        Size: =18
+        OnSelect: =Back()
+
+    PageTitle As label:
+        X: =128
+        Y: =112
+        Width: =800
+        Height: =56
+        Text: ="Suche"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =40
+        FontWeight: =FontWeight.Bold
+
+    SearchInput As textInput:
+        X: =128
+        Y: =184
+        Width: =Parent.Width - 256
+        Height: =64
+        HintText: ="Suche nach Journeys, Modulen, Kategorien..."
+        Default: =searchQuery
+        Fill: =theme.bgSurface
+        Color: =theme.textHi
+        BorderColor: =theme.cyan
+        BorderThickness: =1
+        Size: =16
+        OnChange: =Set(searchQuery, Self.Text)
+
+    SearchHint As label:
+        X: =128
+        Y: =256
+        Width: =Parent.Width - 256
+        Height: =22
+        Text: =If(IsBlank(searchQuery), "Tipp: 'Prompt', 'EU AI Act', 'Copilot', 'Frontier' ...", Text(CountRows(searchJourneyResults) + CountRows(searchModuleResults)) & " Treffer für '" & searchQuery & "'")
+        Color: =theme.textMid
+        Size: =12
+        Italic: =true
+
+    JourneyResultsHeading As label:
+        X: =128
+        Y: =296
+        Width: =400
+        Height: =28
+        Text: ="Journeys"
+        Color: =theme.cyan
+        Size: =14
+        FontWeight: =FontWeight.Bold
+        Visible: =!IsBlank(searchQuery)
+
+    SearchJourneyGallery As gallery:
+        X: =128
+        Y: =332
+        Width: =Parent.Width - 256
+        Height: =220
+        TemplateSize: =220
+        Layout: =Layout.Horizontal
+        Items: |
+            =Filter(
+                colJourneys,
+                IsBlank(searchQuery) Or
+                searchQuery in title Or
+                searchQuery in description Or
+                searchQuery in tagline Or
+                searchQuery in category
+            )
+        ShowScrollbar: =true
+        TemplatePadding: =12
+        Fill: =Color.Transparent
+        Visible: =!IsBlank(searchQuery)
+
+        SRBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 24
+            Height: =200
+            Fill: =theme.bgSurface
+            BorderColor: =ThisItem.color
+            BorderThickness: =1
+
+        SRTitle As label:
+            X: =16
+            Y: =16
+            Width: =Parent.TemplateWidth - 56
+            Height: =48
+            Text: =ThisItem.title
+            Color: =theme.textHi
+            Size: =14
+            FontWeight: =FontWeight.Semibold
+
+        SRDesc As label:
+            X: =16
+            Y: =68
+            Width: =Parent.TemplateWidth - 56
+            Height: =72
+            Text: =ThisItem.description
+            Color: =theme.textMid
+            Size: =11
+
+        SRMeta As label:
+            X: =16
+            Y: =152
+            Width: =Parent.TemplateWidth - 56
+            Height: =22
+            Text: =ThisItem.level & "  ·  " & ThisItem.duration & "m"
+            Color: =ThisItem.color
+            Size: =11
+            FontWeight: =FontWeight.Bold
+
+        SRClick As button:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 24
+            Height: =200
+            Text: =""
+            Fill: =Color.Transparent
+            BorderColor: =Color.Transparent
+            OnSelect: =Set(selectedJourney, ThisItem); Navigate(JourneyDetailScreen, ScreenTransition.Fade)
+
+    ModuleResultsHeading As label:
+        X: =128
+        Y: =576
+        Width: =400
+        Height: =28
+        Text: ="Module"
+        Color: =theme.purple
+        Size: =14
+        FontWeight: =FontWeight.Bold
+        Visible: =!IsBlank(searchQuery)
+
+    SearchModuleGallery As gallery:
+        X: =128
+        Y: =612
+        Width: =Parent.Width - 256
+        Height: =Parent.Height - 644
+        TemplateSize: =72
+        Items: |
+            =Filter(
+                colModules,
+                IsBlank(searchQuery) Or
+                searchQuery in title Or
+                searchQuery in description Or
+                searchQuery in mediaType
+            )
+        ShowScrollbar: =true
+        TemplatePadding: =6
+        Fill: =Color.Transparent
+        Visible: =!IsBlank(searchQuery)
+
+        MRBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 12
+            Height: =60
+            Fill: =theme.bgSurface
+            BorderColor: =theme.borderSubtle
+            BorderThickness: =1
+
+        MRTypeIcon As label:
+            X: =16
+            Y: =14
+            Width: =32
+            Height: =32
+            Text: |
+                =Switch(
+                    ThisItem.mediaType,
+                    "Video","🎬", "Podcast","🎧", "PDF","📄",
+                    "PowerPoint","📊", "Article","📰", "Quiz","🧠", "•"
+                )
+            Size: =18
+            Align: =Align.Center
+            VerticalAlign: =VerticalAlign.Middle
+
+        MRTitle As label:
+            X: =64
+            Y: =10
+            Width: =Parent.TemplateWidth - 96
+            Height: =22
+            Text: =ThisItem.title
+            Color: =theme.textHi
+            Size: =13
+            FontWeight: =FontWeight.Semibold
+
+        MRMeta As label:
+            X: =64
+            Y: =32
+            Width: =Parent.TemplateWidth - 96
+            Height: =20
+            Text: =ThisItem.mediaType & "  ·  " & LookUp(colJourneys, id = ThisItem.journeyId, title) & "  ·  " & ThisItem.duration & "m"
+            Color: =theme.textLo
+            Size: =11
+
+        MRClick As button:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 12
+            Height: =60
+            Text: =""
+            Fill: =Color.Transparent
+            BorderColor: =Color.Transparent
+            OnSelect: |
+                =Set(selectedModule, ThisItem);
+                Set(selectedJourney, LookUp(colJourneys, id = ThisItem.journeyId));
+                Navigate(MediaPlayerScreen, ScreenTransition.Fade)

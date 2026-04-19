@@ -1,0 +1,145 @@
+CategoriesScreen As screen:
+    Fill: =theme.bgCanvas
+    OnVisible: =Set(activeNav,"Categories")
+
+    GlowBlobC As circle:
+        X: =Parent.Width/2 - 300
+        Y: =-100
+        Width: =600
+        Height: =600
+        Fill: =RGBA(176,38,255,0.10)
+        BorderColor: =Color.Transparent
+
+    TopBar As rectangle:
+        X: =96
+        Y: =0
+        Width: =Parent.Width - 96
+        Height: =80
+        Fill: =RGBA(10,14,39,0.6)
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    BackBtn As button:
+        X: =128
+        Y: =22
+        Width: =40
+        Height: =36
+        Text: ="←"
+        Fill: =theme.bgSurface
+        Color: =theme.cyan
+        BorderColor: =theme.borderSubtle
+        Size: =18
+        OnSelect: =Back()
+
+    PageTitle As label:
+        X: =128
+        Y: =112
+        Width: =800
+        Height: =56
+        Text: ="Lernbereiche entdecken"
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =40
+        FontWeight: =FontWeight.Bold
+
+    PageSubtitle As label:
+        X: =128
+        Y: =168
+        Width: =Parent.Width - 256
+        Height: =32
+        Text: ="Wähle dein Themengebiet — von Prompting bis Frontier LLMs."
+        Color: =theme.textMid
+        Size: =14
+
+    CatBigGrid As gallery:
+        X: =128
+        Y: =232
+        Width: =Parent.Width - 160
+        Height: =Parent.Height - 264
+        TemplateSize: =260
+        WrapCount: =3
+        Items: =colCategories
+        ShowScrollbar: =true
+        TemplatePadding: =16
+        Fill: =Color.Transparent
+
+        CatBigBg As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 32
+            Height: =244
+            Fill: =theme.bgSurface
+            BorderColor: =ThisItem.color
+            BorderThickness: =1
+
+        CatBigGlow As rectangle:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 32
+            Height: =6
+            Fill: =ThisItem.color
+            BorderColor: =Color.Transparent
+
+        CatBigIconCircle As circle:
+            X: =24
+            Y: =32
+            Width: =72
+            Height: =72
+            Fill: =RGBA(176,38,255,0.18)
+            BorderColor: =ThisItem.color
+            BorderThickness: =2
+
+        CatBigIcon As label:
+            X: =24
+            Y: =32
+            Width: =72
+            Height: =72
+            Text: ="✦"
+            Color: =ThisItem.color
+            Size: =34
+            Align: =Align.Center
+            VerticalAlign: =VerticalAlign.Middle
+            FontWeight: =FontWeight.Bold
+
+        CatBigName As label:
+            X: =24
+            Y: =120
+            Width: =Parent.TemplateWidth - 64
+            Height: =32
+            Text: =ThisItem.name
+            Color: =theme.textHi
+            Size: =18
+            FontWeight: =FontWeight.Semibold
+
+        CatBigDesc As label:
+            X: =24
+            Y: =156
+            Width: =Parent.TemplateWidth - 64
+            Height: =50
+            Text: =ThisItem.description
+            Color: =theme.textMid
+            Size: =12
+
+        CatBigCount As label:
+            X: =24
+            Y: =210
+            Width: =Parent.TemplateWidth - 64
+            Height: =22
+            Text: =Text(CountIf(colJourneys, category = ThisItem.id)) & " Journeys verfügbar  →"
+            Color: =ThisItem.color
+            Size: =11
+            FontWeight: =FontWeight.Bold
+
+        CatBigClick As button:
+            X: =0
+            Y: =0
+            Width: =Parent.TemplateWidth - 32
+            Height: =244
+            Text: =""
+            Fill: =Color.Transparent
+            BorderColor: =Color.Transparent
+            OnSelect: |
+                =Set(selectedCategory, ThisItem);
+                Set(selectedLevelFilter, Blank());
+                Set(activeNav,"Journeys");
+                Navigate(JourneysScreen, ScreenTransition.Fade)

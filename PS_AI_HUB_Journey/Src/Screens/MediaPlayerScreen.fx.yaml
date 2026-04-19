@@ -1,0 +1,403 @@
+MediaPlayerScreen As screen:
+    Fill: =theme.bgDeep
+    OnVisible: |
+        =Set(playStartTime, Now());
+        Set(quizCurrentQ, 1);
+        Set(quizScore, 0);
+        Set(quizAnswered, false)
+
+    // Ambient glow
+    PlayerGlowA As circle:
+        X: =-200
+        Y: =-200
+        Width: =500
+        Height: =500
+        Fill: =RGBA(176,38,255,0.10)
+        BorderColor: =Color.Transparent
+
+    PlayerGlowB As circle:
+        X: =Parent.Width - 300
+        Y: =Parent.Height - 300
+        Width: =500
+        Height: =500
+        Fill: =RGBA(0,229,255,0.10)
+        BorderColor: =Color.Transparent
+
+    // Top bar
+    TopBar As rectangle:
+        X: =0
+        Y: =0
+        Width: =Parent.Width
+        Height: =64
+        Fill: =RGBA(5,6,15,0.85)
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    BackToJourneyBtn As button:
+        X: =16
+        Y: =14
+        Width: =160
+        Height: =36
+        Text: ="← Zur Journey"
+        Fill: =theme.bgSurface
+        Color: =theme.textHi
+        BorderColor: =theme.borderSubtle
+        Size: =11
+        OnSelect: =Back()
+
+    JourneyContext As label:
+        X: =192
+        Y: =0
+        Width: =Parent.Width - 400
+        Height: =64
+        Text: =selectedJourney.title & "  ›  Modul " & selectedModule.order
+        Color: =theme.textMid
+        Size: =12
+        VerticalAlign: =VerticalAlign.Middle
+
+    CompleteBtn As button:
+        X: =Parent.Width - 192
+        Y: =14
+        Width: =176
+        Height: =36
+        Text: ="✓ Abschließen"
+        Fill: =theme.success
+        Color: =theme.bgDeep
+        BorderColor: =Color.Transparent
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        OnSelect: |
+            =Patch(
+                colProgress,
+                Defaults(colProgress),
+                {
+                    moduleId: selectedModule.id,
+                    status: "completed",
+                    completedOn: Now(),
+                    score: 100
+                }
+            );
+            Notify("✓ Modul abgeschlossen — +50 XP!", NotificationType.Success);
+            Back()
+
+    // ====== TITLE ======
+    ModuleTypeTag As label:
+        X: =48
+        Y: =96
+        Width: =140
+        Height: =28
+        Text: =Upper(selectedModule.mediaType)
+        Color: =theme.bgDeep
+        Fill: =selectedJourney.color
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+        VerticalAlign: =VerticalAlign.Middle
+
+    ModuleTitleH1 As label:
+        X: =48
+        Y: =136
+        Width: =Parent.Width - 96
+        Height: =56
+        Text: =selectedModule.title
+        Color: =theme.textHi
+        Font: =theme.fontDisplay
+        Size: =34
+        FontWeight: =FontWeight.Bold
+
+    ModuleDescH2 As label:
+        X: =48
+        Y: =196
+        Width: =Parent.Width - 96
+        Height: =40
+        Text: =selectedModule.description
+        Color: =theme.textMid
+        Size: =14
+
+    // ============================================================
+    // MEDIA STAGE — adaptive container per media type
+    // ============================================================
+    MediaStageBg As rectangle:
+        X: =48
+        Y: =256
+        Width: =Parent.Width - 96
+        Height: =Parent.Height - 320
+        Fill: =theme.bgSurface
+        BorderColor: =theme.borderSubtle
+        BorderThickness: =1
+
+    // ----- VIDEO -----
+    VideoFrame As htmlText:
+        X: =64
+        Y: =272
+        Width: =Parent.Width - 128
+        Height: =Parent.Height - 352
+        HtmlText: |
+            ="<div style='position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;'>" &
+              "<iframe src='" & selectedModule.mediaUrl & "' " &
+              "style='position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:16px;' " &
+              "allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>" &
+              "</div>"
+        Visible: =selectedModule.mediaType = "Video"
+
+    // ----- PODCAST -----
+    PodcastArtwork As circle:
+        X: =Parent.Width/2 - 110
+        Y: =320
+        Width: =220
+        Height: =220
+        Fill: =theme.purple
+        BorderColor: =theme.cyan
+        BorderThickness: =3
+        Visible: =selectedModule.mediaType = "Podcast"
+
+    PodcastIcon As label:
+        X: =Parent.Width/2 - 110
+        Y: =320
+        Width: =220
+        Height: =220
+        Text: ="🎧"
+        Color: =theme.textHi
+        Size: =96
+        Align: =Align.Center
+        VerticalAlign: =VerticalAlign.Middle
+        Visible: =selectedModule.mediaType = "Podcast"
+
+    PodcastTitle As label:
+        X: =48
+        Y: =556
+        Width: =Parent.Width - 96
+        Height: =40
+        Text: =selectedModule.title
+        Color: =theme.textHi
+        Size: =22
+        FontWeight: =FontWeight.Semibold
+        Align: =Align.Center
+        Visible: =selectedModule.mediaType = "Podcast"
+
+    PodcastAudio As audio:
+        X: =Parent.Width/2 - 240
+        Y: =612
+        Width: =480
+        Height: =60
+        Media: =selectedModule.mediaUrl
+        AutoStart: =false
+        ShowControls: =true
+        Visible: =selectedModule.mediaType = "Podcast"
+
+    PodcastSubscribe As label:
+        X: =48
+        Y: =696
+        Width: =Parent.Width - 96
+        Height: =22
+        Text: ="🔔 Folge unserem Podcast 'AI in Practice' — neue Episoden jeden Mittwoch."
+        Color: =theme.textLo
+        Size: =11
+        Align: =Align.Center
+        Italic: =true
+        Visible: =selectedModule.mediaType = "Podcast"
+
+    // ----- PDF -----
+    PdfFrame As htmlText:
+        X: =64
+        Y: =272
+        Width: =Parent.Width - 128
+        Height: =Parent.Height - 408
+        HtmlText: |
+            ="<iframe src='https://docs.google.com/viewer?url=" & EncodeUrl(selectedModule.mediaUrl) & "&embedded=true' " &
+              "style='width:100%;height:100%;border:0;border-radius:16px;background:#0A0E27;'></iframe>"
+        Visible: =selectedModule.mediaType = "PDF"
+
+    PdfDownloadBtn As button:
+        X: =Parent.Width/2 - 100
+        Y: =Parent.Height - 120
+        Width: =200
+        Height: =44
+        Text: ="⬇  PDF herunterladen"
+        Fill: =theme.cyan
+        Color: =theme.bgDeep
+        BorderColor: =Color.Transparent
+        Size: =12
+        FontWeight: =FontWeight.Bold
+        Visible: =selectedModule.mediaType = "PDF"
+        OnSelect: =Launch(selectedModule.mediaUrl)
+
+    // ----- POWERPOINT -----
+    PptFrame As htmlText:
+        X: =64
+        Y: =272
+        Width: =Parent.Width - 128
+        Height: =Parent.Height - 408
+        HtmlText: |
+            ="<iframe src='https://view.officeapps.live.com/op/embed.aspx?src=" & EncodeUrl(selectedModule.mediaUrl) & "' " &
+              "style='width:100%;height:100%;border:0;border-radius:16px;'></iframe>"
+        Visible: =selectedModule.mediaType = "PowerPoint"
+
+    PptDownloadBtn As button:
+        X: =Parent.Width/2 - 130
+        Y: =Parent.Height - 120
+        Width: =260
+        Height: =44
+        Text: ="⬇  PowerPoint herunterladen"
+        Fill: =theme.purple
+        Color: =theme.textHi
+        BorderColor: =Color.Transparent
+        Size: =12
+        FontWeight: =FontWeight.Bold
+        Visible: =selectedModule.mediaType = "PowerPoint"
+        OnSelect: =Launch(selectedModule.mediaUrl)
+
+    // ----- ARTICLE -----
+    ArticleFrame As htmlText:
+        X: =64
+        Y: =272
+        Width: =Parent.Width - 128
+        Height: =Parent.Height - 408
+        HtmlText: |
+            ="<iframe src='" & selectedModule.mediaUrl & "' " &
+              "style='width:100%;height:100%;border:0;border-radius:16px;background:#fff;'></iframe>"
+        Visible: =selectedModule.mediaType = "Article"
+
+    ArticleOpenBtn As button:
+        X: =Parent.Width/2 - 110
+        Y: =Parent.Height - 120
+        Width: =220
+        Height: =44
+        Text: ="↗  Original öffnen"
+        Fill: =theme.lime
+        Color: =theme.bgDeep
+        BorderColor: =Color.Transparent
+        Size: =12
+        FontWeight: =FontWeight.Bold
+        Visible: =selectedModule.mediaType = "Article"
+        OnSelect: =Launch(selectedModule.mediaUrl)
+
+    // ----- QUIZ -----
+    QuizCardBg As rectangle:
+        X: =Parent.Width/2 - 320
+        Y: =320
+        Width: =640
+        Height: =380
+        Fill: =theme.bgSurfaceAlt
+        BorderColor: =theme.cyan
+        BorderThickness: =2
+        Visible: =selectedModule.mediaType = "Quiz"
+
+    QuizProgressLbl As label:
+        X: =Parent.Width/2 - 320
+        Y: =344
+        Width: =640
+        Height: =24
+        Text: ="Frage " & quizCurrentQ & " von 5"
+        Color: =theme.cyan
+        Size: =11
+        FontWeight: =FontWeight.Bold
+        Align: =Align.Center
+        Visible: =selectedModule.mediaType = "Quiz"
+
+    QuizQuestionLbl As label:
+        X: =Parent.Width/2 - 296
+        Y: =384
+        Width: =592
+        Height: =80
+        Text: |
+            =Switch(
+                quizCurrentQ,
+                1, "Welche Prompting-Technik ergibt schrittweise Begründungen?",
+                2, "Was ist 'Few-Shot Prompting'?",
+                3, "Welche Risikoklasse hat ein KI-System für Recruiting laut EU AI Act?",
+                4, "Welches Modell hat 1M Token Kontext (2026)?",
+                5, "Was bedeutet RAG?"
+            )
+        Color: =theme.textHi
+        Size: =18
+        FontWeight: =FontWeight.Semibold
+        Align: =Align.Center
+        Visible: =selectedModule.mediaType = "Quiz"
+
+    QuizOption1 As button:
+        X: =Parent.Width/2 - 296
+        Y: =488
+        Width: =290
+        Height: =60
+        Text: |
+            =Switch(quizCurrentQ,
+                1,"Zero-Shot",
+                2,"Beispiele im Prompt mitgeben",
+                3,"Minimales Risiko",
+                4,"GPT-3.5",
+                5,"Random Answer Generator"
+            )
+        Fill: =theme.bgSurface
+        Color: =theme.textHi
+        BorderColor: =theme.cyan
+        BorderThickness: =1
+        Size: =12
+        Visible: =selectedModule.mediaType = "Quiz"
+        OnSelect: =Set(quizCurrentQ, If(quizCurrentQ<5, quizCurrentQ+1, 1))
+
+    QuizOption2 As button:
+        X: =Parent.Width/2 + 6
+        Y: =488
+        Width: =290
+        Height: =60
+        Text: |
+            =Switch(quizCurrentQ,
+                1,"Chain-of-Thought",
+                2,"Nur eine Frage stellen",
+                3,"Hochrisiko",
+                4,"Claude Opus 4.7",
+                5,"Retrieval-Augmented Generation"
+            )
+        Fill: =theme.bgSurface
+        Color: =theme.textHi
+        BorderColor: =theme.cyan
+        BorderThickness: =1
+        Size: =12
+        Visible: =selectedModule.mediaType = "Quiz"
+        OnSelect: |
+            =Set(quizScore, quizScore + 20);
+            Set(quizCurrentQ, If(quizCurrentQ<5, quizCurrentQ+1, 1));
+            If(quizCurrentQ=1, Notify("Quiz abgeschlossen! Score: " & quizScore & "%", NotificationType.Success))
+
+    QuizOption3 As button:
+        X: =Parent.Width/2 - 296
+        Y: =556
+        Width: =290
+        Height: =60
+        Text: |
+            =Switch(quizCurrentQ,
+                1,"Role Prompting",
+                2,"In Code reden",
+                3,"Begrenztes Risiko",
+                4,"Llama 2",
+                5,"Real-time Audio Generation"
+            )
+        Fill: =theme.bgSurface
+        Color: =theme.textHi
+        BorderColor: =theme.cyan
+        BorderThickness: =1
+        Size: =12
+        Visible: =selectedModule.mediaType = "Quiz"
+        OnSelect: =Set(quizCurrentQ, If(quizCurrentQ<5, quizCurrentQ+1, 1))
+
+    QuizOption4 As button:
+        X: =Parent.Width/2 + 6
+        Y: =556
+        Width: =290
+        Height: =60
+        Text: |
+            =Switch(quizCurrentQ,
+                1,"Self-Consistency",
+                2,"Modell neu trainieren",
+                3,"Verboten",
+                4,"GPT-2",
+                5,"Recursive Algorithm Graph"
+            )
+        Fill: =theme.bgSurface
+        Color: =theme.textHi
+        BorderColor: =theme.cyan
+        BorderThickness: =1
+        Size: =12
+        Visible: =selectedModule.mediaType = "Quiz"
+        OnSelect: =Set(quizCurrentQ, If(quizCurrentQ<5, quizCurrentQ+1, 1))
