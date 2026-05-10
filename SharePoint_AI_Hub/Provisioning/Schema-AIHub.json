@@ -1,0 +1,243 @@
+{
+  "$schema": "./Schema-AIHub.schema.json",
+  "comment": "Source of truth for all AIHub_* lists. Consumed by Provision-AIHub.ps1.",
+  "documentLibraries": [
+    {
+      "title": "AIHubAssets",
+      "description": "AI Hub static assets (HTML, CSS, JS) and ASPX pages."
+    },
+    {
+      "title": "AIHub_Policies",
+      "description": "Governance policies (PDF/DOCX) referenced by AIHub_GovDocs.",
+      "fields": [
+        { "internalName": "Risk", "displayName": "Risk", "type": "Choice", "choices": [ "high", "medium", "low" ] },
+        { "internalName": "ValidFrom", "displayName": "Valid From", "type": "DateTime" },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "choices": [ "de", "en" ] }
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "title": "AIHub_I18nStrings",
+      "description": "All UI strings — keyed lookup for labels, footer, banners.",
+      "fields": [
+        { "internalName": "Key", "displayName": "Key", "type": "Text", "required": true, "indexed": true },
+        { "internalName": "Value", "displayName": "Value", "type": "Note" },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_Navigation",
+      "description": "7 navigation rail items.",
+      "fields": [
+        { "internalName": "NavKey", "displayName": "Nav Key", "type": "Text", "required": true },
+        { "internalName": "Label", "displayName": "Label", "type": "Text", "required": true },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_KPIs",
+      "description": "Home dashboard KPIs.",
+      "fields": [
+        { "internalName": "KPIKey", "displayName": "KPI Key", "type": "Text", "required": true },
+        { "internalName": "Value", "displayName": "Value", "type": "Text" },
+        { "internalName": "Label", "displayName": "Label", "type": "Text", "required": true },
+        { "internalName": "Target", "displayName": "Target", "type": "Text" },
+        { "internalName": "Color", "displayName": "Color (Hex/CSS)", "type": "Text" },
+        { "internalName": "Progress", "displayName": "Progress (0–100)", "type": "Number", "min": 0, "max": 100 },
+        { "internalName": "AchievementPct", "displayName": "Achievement %", "type": "Calculated", "formula": "=IF(ISNUMBER(Progress),ROUND(Progress,0),0)", "outputType": "Number" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_News",
+      "description": "Home news feed.",
+      "fields": [
+        { "internalName": "Tag", "displayName": "Tag", "type": "Text" },
+        { "internalName": "NewsDate", "displayName": "News Date", "type": "DateTime" },
+        { "internalName": "Color", "displayName": "Color", "type": "Text" },
+        { "internalName": "IsHot", "displayName": "Is Hot", "type": "Boolean", "default": false },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_PromptOfWeek",
+      "description": "Featured prompt of the current week.",
+      "fields": [
+        { "internalName": "Category", "displayName": "Category", "type": "Text" },
+        { "internalName": "PromptText", "displayName": "Prompt Text", "type": "Note" },
+        { "internalName": "WeekISO", "displayName": "Week (ISO)", "type": "Text" },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_AssessmentQuestions",
+      "description": "5 self-assessment questions with 4 options each.",
+      "fields": [
+        { "internalName": "QKey", "displayName": "Question Key", "type": "Text", "required": true },
+        { "internalName": "Question", "displayName": "Question", "type": "Note", "required": true },
+        { "internalName": "Opt1Label", "displayName": "Option 1", "type": "Text" },
+        { "internalName": "Opt1Score", "displayName": "Score 1", "type": "Number", "min": 0, "max": 3 },
+        { "internalName": "Opt2Label", "displayName": "Option 2", "type": "Text" },
+        { "internalName": "Opt2Score", "displayName": "Score 2", "type": "Number", "min": 0, "max": 3 },
+        { "internalName": "Opt3Label", "displayName": "Option 3", "type": "Text" },
+        { "internalName": "Opt3Score", "displayName": "Score 3", "type": "Number", "min": 0, "max": 3 },
+        { "internalName": "Opt4Label", "displayName": "Option 4", "type": "Text" },
+        { "internalName": "Opt4Score", "displayName": "Score 4", "type": "Number", "min": 0, "max": 3 },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_LearningPaths",
+      "description": "Learning paths by skill level.",
+      "fields": [
+        { "internalName": "PathKey", "displayName": "Path Key", "type": "Text", "required": true },
+        { "internalName": "LevelInternal", "displayName": "Level (Internal)", "type": "Choice", "choices": [ "beginner", "intermediate", "advanced", "leader" ] },
+        { "internalName": "LevelLabel", "displayName": "Level Label", "type": "Text" },
+        { "internalName": "Hours", "displayName": "Hours", "type": "Number" },
+        { "internalName": "Provider", "displayName": "Provider", "type": "Text" },
+        { "internalName": "Description", "displayName": "Description", "type": "Note" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_UseCases",
+      "description": "AI use case pipeline (live / pilot / backlog).",
+      "fields": [
+        { "internalName": "UCKey", "displayName": "Use Case Key", "type": "Text", "required": true },
+        { "internalName": "Department", "displayName": "Department", "type": "Text" },
+        { "internalName": "StatusInternal", "displayName": "Status (Internal)", "type": "Choice", "choices": [ "live", "pilot", "backlog" ], "required": true },
+        { "internalName": "PhaseInternal", "displayName": "Phase (Internal)", "type": "Choice", "choices": [ "quickwin", "capability", "strategic" ] },
+        { "internalName": "ImpactInternal", "displayName": "Impact (Internal)", "type": "Choice", "choices": [ "vhigh", "high", "medium" ] },
+        { "internalName": "ROI", "displayName": "ROI", "type": "Text" },
+        { "internalName": "Description", "displayName": "Description", "type": "Note" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_Prompts",
+      "description": "Best-practice prompt library.",
+      "fields": [
+        { "internalName": "PromptKey", "displayName": "Prompt Key", "type": "Text", "required": true },
+        { "internalName": "Category", "displayName": "Category", "type": "Text" },
+        { "internalName": "PromptText", "displayName": "Prompt Text", "type": "Note" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_Resources",
+      "description": "External / internal resources & references.",
+      "fields": [
+        { "internalName": "Emoji", "displayName": "Emoji", "type": "Text" },
+        { "internalName": "ResTitle", "displayName": "Resource Title", "type": "Text" },
+        { "internalName": "Description", "displayName": "Description", "type": "Note" },
+        { "internalName": "Color", "displayName": "Color", "type": "Text" },
+        { "internalName": "Source", "displayName": "Source", "type": "Text" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_GovFAQ",
+      "description": "Governance FAQ.",
+      "fields": [
+        { "internalName": "Question", "displayName": "Question", "type": "Text" },
+        { "internalName": "Answer", "displayName": "Answer", "type": "Note" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_GovDocs",
+      "description": "Links to governance documents (in AIHub_Policies).",
+      "fields": [
+        { "internalName": "DocTitle", "displayName": "Document Title", "type": "Text" },
+        { "internalName": "DocUrl", "displayName": "Document URL", "type": "URL" },
+        { "internalName": "Icon", "displayName": "Icon", "type": "Text" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_GovRoadmap",
+      "description": "EU AI Act roadmap milestones.",
+      "fields": [
+        { "internalName": "Quarter", "displayName": "Quarter", "type": "Text" },
+        { "internalName": "Milestone", "displayName": "Milestone", "type": "Note" },
+        { "internalName": "StatusInternal", "displayName": "Status (Internal)", "type": "Choice", "choices": [ "done", "inprogress", "planned" ] },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_GovBlocks",
+      "description": "Governance pillars (3 cards).",
+      "fields": [
+        { "internalName": "BlockTitle", "displayName": "Block Title", "type": "Text" },
+        { "internalName": "BlockText", "displayName": "Block Text", "type": "Note" },
+        { "internalName": "Icon", "displayName": "Icon", "type": "Text" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_Events",
+      "description": "Upcoming events / dates.",
+      "fields": [
+        { "internalName": "EventDate", "displayName": "Event Date", "type": "DateTime" },
+        { "internalName": "EventTime", "displayName": "Event Time", "type": "Text" },
+        { "internalName": "Location", "displayName": "Location", "type": "Text" },
+        { "internalName": "TypeInternal", "displayName": "Type (Internal)", "type": "Choice", "choices": [ "workshop", "training", "webinar", "meetup", "summit" ] },
+        { "internalName": "Color", "displayName": "Color", "type": "Text" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_Risks",
+      "description": "Steering/cockpit risk register.",
+      "fields": [
+        { "internalName": "LevelInternal", "displayName": "Level (Internal)", "type": "Choice", "choices": [ "high", "medium", "low" ] },
+        { "internalName": "Owner", "displayName": "Owner", "type": "Text" },
+        { "internalName": "DueDate", "displayName": "Due Date", "type": "DateTime" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_Phases",
+      "description": "Programme phases (steering view).",
+      "fields": [
+        { "internalName": "PhaseName", "displayName": "Phase Name", "type": "Text" },
+        { "internalName": "Budget", "displayName": "Budget (EUR)", "type": "Number" },
+        { "internalName": "StatusInternal", "displayName": "Status (Internal)", "type": "Choice", "choices": [ "active", "planned", "open", "done" ] },
+        { "internalName": "Progress", "displayName": "Progress (0–100)", "type": "Number", "min": 0, "max": 100 },
+        { "internalName": "ItemsJson", "displayName": "Items (JSON array)", "type": "Note" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    },
+    {
+      "title": "AIHub_SteeringKPIs",
+      "description": "Cockpit KPIs (separate from home KPIs).",
+      "fields": [
+        { "internalName": "KPIKey", "displayName": "KPI Key", "type": "Text", "required": true },
+        { "internalName": "Value", "displayName": "Value", "type": "Text" },
+        { "internalName": "Label", "displayName": "Label", "type": "Text", "required": true },
+        { "internalName": "Target", "displayName": "Target", "type": "Text" },
+        { "internalName": "Color", "displayName": "Color", "type": "Text" },
+        { "internalName": "Progress", "displayName": "Progress (0–100)", "type": "Number", "min": 0, "max": 100 },
+        { "internalName": "Trend", "displayName": "Trend", "type": "Text" },
+        { "internalName": "SortOrder", "displayName": "Sort Order", "type": "Number", "default": 100 },
+        { "internalName": "Language", "displayName": "Language", "type": "Choice", "required": true, "choices": [ "de", "en" ] }
+      ]
+    }
+  ]
+}

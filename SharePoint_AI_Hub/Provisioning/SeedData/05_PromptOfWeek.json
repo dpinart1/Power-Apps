@@ -1,0 +1,19 @@
+{
+  "list": "AIHub_PromptOfWeek",
+  "items": [
+    {
+      "Title": "Strategische Quartalsanalyse aus Verkaufsdaten",
+      "Category": "Analyse",
+      "PromptText": "Du bist Senior Strategy Analyst.\nAnalysiere die folgenden Quartalsdaten und identifiziere die drei wichtigsten Wachstumstreiber sowie die zwei größten Risiken.\nPräsentiere das Ergebnis als Executive Summary (max. 200 Wörter), gefolgt von einer Tabelle mit konkreten Maßnahmen.\nDaten: <fügen ein>",
+      "WeekISO": "2026-W19",
+      "Language": "de"
+    },
+    {
+      "Title": "Strategic quarterly analysis from sales data",
+      "Category": "Analysis",
+      "PromptText": "You are a Senior Strategy Analyst.\nAnalyse the following quarterly data and identify the three most important growth drivers and the two biggest risks.\nPresent the result as an Executive Summary (max. 200 words), followed by a table of concrete actions.\nData: <paste here>",
+      "WeekISO": "2026-W19",
+      "Language": "en"
+    }
+  ]
+}

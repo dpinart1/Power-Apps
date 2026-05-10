@@ -1,0 +1,14 @@
+{
+  "list": "AIHub_GovRoadmap",
+  "items": [
+    { "Title": "Verbote in Kraft",                  "Quarter": "Q1 2025", "Milestone": "Verbotene Praktiken",            "StatusInternal": "done",       "SortOrder": 10, "Language": "de" },
+    { "Title": "GPAI Pflichten",                    "Quarter": "Q3 2025", "Milestone": "Pflichten für General-Purpose-AI", "StatusInternal": "inprogress", "SortOrder": 20, "Language": "de" },
+    { "Title": "Hochrisiko-Systeme registriert",    "Quarter": "Q2 2026", "Milestone": "Konformitätsbewertung & Reg.",   "StatusInternal": "planned",    "SortOrder": 30, "Language": "de" },
+    { "Title": "Vollständige Anwendung",            "Quarter": "Q3 2026", "Milestone": "Alle Pflichten anwendbar",       "StatusInternal": "planned",    "SortOrder": 40, "Language": "de" },
+
+    { "Title": "Prohibitions in force",             "Quarter": "Q1 2025", "Milestone": "Prohibited practices",           "StatusInternal": "done",       "SortOrder": 10, "Language": "en" },
+    { "Title": "GPAI obligations",                  "Quarter": "Q3 2025", "Milestone": "Obligations for general-purpose AI","StatusInternal": "inprogress","SortOrder": 20, "Language": "en" },
+    { "Title": "High-risk systems registered",      "Quarter": "Q2 2026", "Milestone": "Conformity assessment & registry","StatusInternal": "planned",  "SortOrder": 30, "Language": "en" },
+    { "Title": "Full application",                  "Quarter": "Q3 2026", "Milestone": "All obligations applicable",     "StatusInternal": "planned",    "SortOrder": 40, "Language": "en" }
+  ]
+}

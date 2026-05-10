@@ -1,0 +1,66 @@
+{
+  "list": "AIHub_Phases",
+  "items": [
+    {
+      "Title": "Phase 1: Awareness & Quick Wins",
+      "PhaseName": "Phase 1: Awareness & Quick Wins",
+      "Budget": 850000,
+      "StatusInternal": "active",
+      "Progress": 75,
+      "ItemsJson": "[\"Copilot-Pilot in 5 Bereichen\",\"AI-Champions-Programm gestartet\",\"AI-Awareness-Schulung für 1.500 MA\"]",
+      "SortOrder": 10,
+      "Language": "de"
+    },
+    {
+      "Title": "Phase 2: Capability Building",
+      "PhaseName": "Phase 2: Capability Building",
+      "Budget": 2200000,
+      "StatusInternal": "active",
+      "Progress": 35,
+      "ItemsJson": "[\"Prompt Library, RAG-Plattform\",\"Lernpfade für Manager:innen\",\"Center of Excellence aufgebaut\"]",
+      "SortOrder": 20,
+      "Language": "de"
+    },
+    {
+      "Title": "Phase 3: Strategic Bets",
+      "PhaseName": "Phase 3: Strategic Bets",
+      "Budget": 4500000,
+      "StatusInternal": "planned",
+      "Progress": 5,
+      "ItemsJson": "[\"Forecast Co-Pilot\",\"Quality Vision Inspection\",\"AI-native Produktstrategie\"]",
+      "SortOrder": 30,
+      "Language": "de"
+    },
+
+    {
+      "Title": "Phase 1: Awareness & Quick Wins",
+      "PhaseName": "Phase 1: Awareness & Quick Wins",
+      "Budget": 850000,
+      "StatusInternal": "active",
+      "Progress": 75,
+      "ItemsJson": "[\"Copilot pilot in 5 areas\",\"AI Champions programme started\",\"AI awareness training for 1,500 employees\"]",
+      "SortOrder": 10,
+      "Language": "en"
+    },
+    {
+      "Title": "Phase 2: Capability Building",
+      "PhaseName": "Phase 2: Capability Building",
+      "Budget": 2200000,
+      "StatusInternal": "active",
+      "Progress": 35,
+      "ItemsJson": "[\"Prompt library, RAG platform\",\"Learning paths for managers\",\"Centre of Excellence stood up\"]",
+      "SortOrder": 20,
+      "Language": "en"
+    },
+    {
+      "Title": "Phase 3: Strategic Bets",
+      "PhaseName": "Phase 3: Strategic Bets",
+      "Budget": 4500000,
+      "StatusInternal": "planned",
+      "Progress": 5,
+      "ItemsJson": "[\"Forecast Co-Pilot\",\"Quality Vision Inspection\",\"AI-native product strategy\"]",
+      "SortOrder": 30,
+      "Language": "en"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "list": "AIHub_KPIs",
+  "items": [
+    { "Title": "Adoption-Rate",       "KPIKey": "adoption",   "Value": "62%",   "Label": "Aktive Nutzer:innen",     "Target": "75%",  "Color": "#6c8cff", "Progress": 83, "SortOrder": 10, "Language": "de" },
+    { "Title": "Use Cases live",      "KPIKey": "ucsLive",    "Value": "14",    "Label": "Use Cases live",          "Target": "20",   "Color": "#00d4b3", "Progress": 70, "SortOrder": 20, "Language": "de" },
+    { "Title": "Champions",           "KPIKey": "champions",  "Value": "48",    "Label": "AI Champions",            "Target": "60",   "Color": "#ffc857", "Progress": 80, "SortOrder": 30, "Language": "de" },
+    { "Title": "ROI",                 "KPIKey": "roi",        "Value": "2.4M €","Label": "Realisierter ROI",        "Target": "3.0M €","Color": "#00d4b3", "Progress": 80, "SortOrder": 40, "Language": "de" },
+    { "Title": "Schulungsstunden",    "KPIKey": "training",   "Value": "1.860", "Label": "Trainingsstunden",        "Target": "2.500","Color": "#6c8cff", "Progress": 74, "SortOrder": 50, "Language": "de" },
+    { "Title": "Compliance",          "KPIKey": "compliance", "Value": "96%",   "Label": "EU-AI-Act Konformität",   "Target": "100%", "Color": "#ff7a90", "Progress": 96, "SortOrder": 60, "Language": "de" },
+
+    { "Title": "Adoption-Rate (en)",  "KPIKey": "adoption",   "Value": "62%",   "Label": "Active users",            "Target": "75%",  "Color": "#6c8cff", "Progress": 83, "SortOrder": 10, "Language": "en" },
+    { "Title": "Use Cases live (en)", "KPIKey": "ucsLive",    "Value": "14",    "Label": "Use cases live",          "Target": "20",   "Color": "#00d4b3", "Progress": 70, "SortOrder": 20, "Language": "en" },
+    { "Title": "Champions (en)",      "KPIKey": "champions",  "Value": "48",    "Label": "AI Champions",            "Target": "60",   "Color": "#ffc857", "Progress": 80, "SortOrder": 30, "Language": "en" },
+    { "Title": "ROI (en)",            "KPIKey": "roi",        "Value": "2.4M €","Label": "Realised ROI",            "Target": "3.0M €","Color": "#00d4b3", "Progress": 80, "SortOrder": 40, "Language": "en" },
+    { "Title": "Training hrs (en)",   "KPIKey": "training",   "Value": "1,860", "Label": "Training hours",          "Target": "2,500","Color": "#6c8cff", "Progress": 74, "SortOrder": 50, "Language": "en" },
+    { "Title": "Compliance (en)",     "KPIKey": "compliance", "Value": "96%",   "Label": "EU AI Act compliance",    "Target": "100%", "Color": "#ff7a90", "Progress": 96, "SortOrder": 60, "Language": "en" }
+  ]
+}

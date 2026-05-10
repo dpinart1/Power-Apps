@@ -1,0 +1,18 @@
+{
+  "list": "AIHub_Resources",
+  "items": [
+    { "Title": "Microsoft Copilot Adoption Kit",  "Emoji": "🚀", "ResTitle": "Microsoft Copilot Adoption Kit", "Description": "Frameworks, Templates und Champions-Programm für nachhaltige Copilot-Adoption.",        "Color": "#6c8cff", "Source": "Microsoft", "SortOrder": 10, "Language": "de" },
+    { "Title": "Prompt Engineering Guide",        "Emoji": "🧠", "ResTitle": "Prompt Engineering Guide",       "Description": "Open-Source-Sammlung etablierter Prompting-Patterns mit Beispielen.",                     "Color": "#00d4b3", "Source": "promptingguide.ai", "SortOrder": 20, "Language": "de" },
+    { "Title": "EU AI Act – Volltext",            "Emoji": "📜", "ResTitle": "EU AI Act – Volltext",           "Description": "Konsolidierte Fassung der Verordnung mit Erläuterungen.",                                   "Color": "#ff7a90", "Source": "EUR-Lex",     "SortOrder": 30, "Language": "de" },
+    { "Title": "AI Risk Management Framework",    "Emoji": "🛡️", "ResTitle": "AI Risk Management Framework",   "Description": "Strukturiertes Framework zur Bewertung und Steuerung von KI-Risiken.",                       "Color": "#ffc857", "Source": "NIST",         "SortOrder": 40, "Language": "de" },
+    { "Title": "AI Maturity Model",               "Emoji": "📈", "ResTitle": "AI Maturity Model",              "Description": "Reifegradmodell zur Selbsteinschätzung der Organisation.",                                  "Color": "#6c8cff", "Source": "Gartner",     "SortOrder": 50, "Language": "de" },
+    { "Title": "Verantwortungsvolle KI – intern", "Emoji": "💡", "ResTitle": "Verantwortungsvolle KI – intern","Description": "Unsere internen Prinzipien, Definitionen und Beispiele für verantwortungsvolle KI.",         "Color": "#00d4b3", "Source": "intern",       "SortOrder": 60, "Language": "de" },
+
+    { "Title": "Microsoft Copilot Adoption Kit",  "Emoji": "🚀", "ResTitle": "Microsoft Copilot Adoption Kit", "Description": "Frameworks, templates and champions programme for sustainable Copilot adoption.",          "Color": "#6c8cff", "Source": "Microsoft", "SortOrder": 10, "Language": "en" },
+    { "Title": "Prompt Engineering Guide",        "Emoji": "🧠", "ResTitle": "Prompt Engineering Guide",       "Description": "Open-source collection of established prompting patterns with examples.",                  "Color": "#00d4b3", "Source": "promptingguide.ai", "SortOrder": 20, "Language": "en" },
+    { "Title": "EU AI Act – full text",           "Emoji": "📜", "ResTitle": "EU AI Act – full text",          "Description": "Consolidated version of the regulation with explanatory notes.",                            "Color": "#ff7a90", "Source": "EUR-Lex",     "SortOrder": 30, "Language": "en" },
+    { "Title": "AI Risk Management Framework",    "Emoji": "🛡️", "ResTitle": "AI Risk Management Framework",   "Description": "Structured framework for assessing and managing AI risks.",                                "Color": "#ffc857", "Source": "NIST",         "SortOrder": 40, "Language": "en" },
+    { "Title": "AI Maturity Model",               "Emoji": "📈", "ResTitle": "AI Maturity Model",              "Description": "Maturity model for organisational self-assessment.",                                       "Color": "#6c8cff", "Source": "Gartner",     "SortOrder": 50, "Language": "en" },
+    { "Title": "Responsible AI – internal",       "Emoji": "💡", "ResTitle": "Responsible AI – internal",      "Description": "Our internal principles, definitions and examples of responsible AI.",                     "Color": "#00d4b3", "Source": "internal",     "SortOrder": 60, "Language": "en" }
+  ]
+}

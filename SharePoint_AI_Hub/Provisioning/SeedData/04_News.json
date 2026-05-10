@@ -1,0 +1,14 @@
+{
+  "list": "AIHub_News",
+  "items": [
+    { "Title": "Copilot Rollout für Vertrieb gestartet",      "Tag": "Rollout",      "NewsDate": "2026-04-22T08:00:00Z", "Color": "#6c8cff", "IsHot": true,  "SortOrder": 10, "Language": "de" },
+    { "Title": "Neuer Lernpfad: Prompting für Manager:innen", "Tag": "Lernen",       "NewsDate": "2026-04-15T08:00:00Z", "Color": "#00d4b3", "IsHot": false, "SortOrder": 20, "Language": "de" },
+    { "Title": "AI Act – finale Anpassungen veröffentlicht",  "Tag": "Compliance",   "NewsDate": "2026-04-08T08:00:00Z", "Color": "#ff7a90", "IsHot": true,  "SortOrder": 30, "Language": "de" },
+    { "Title": "AI Champions Q1 ausgezeichnet",               "Tag": "Community",    "NewsDate": "2026-04-01T08:00:00Z", "Color": "#ffc857", "IsHot": false, "SortOrder": 40, "Language": "de" },
+
+    { "Title": "Copilot rollout for Sales started",            "Tag": "Rollout",      "NewsDate": "2026-04-22T08:00:00Z", "Color": "#6c8cff", "IsHot": true,  "SortOrder": 10, "Language": "en" },
+    { "Title": "New learning path: Prompting for managers",    "Tag": "Learning",     "NewsDate": "2026-04-15T08:00:00Z", "Color": "#00d4b3", "IsHot": false, "SortOrder": 20, "Language": "en" },
+    { "Title": "AI Act – final adjustments published",         "Tag": "Compliance",   "NewsDate": "2026-04-08T08:00:00Z", "Color": "#ff7a90", "IsHot": true,  "SortOrder": 30, "Language": "en" },
+    { "Title": "AI Champions Q1 awarded",                      "Tag": "Community",    "NewsDate": "2026-04-01T08:00:00Z", "Color": "#ffc857", "IsHot": false, "SortOrder": 40, "Language": "en" }
+  ]
+}
