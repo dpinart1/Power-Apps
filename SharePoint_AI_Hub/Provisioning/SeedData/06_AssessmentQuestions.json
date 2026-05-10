@@ -1,0 +1,96 @@
+{
+  "list": "AIHub_AssessmentQuestions",
+  "items": [
+    {
+      "Title": "Q1 (de)", "QKey": "Q1",
+      "Question": "Wie häufig nutzt du KI-Tools in deinem Arbeitsalltag?",
+      "Opt1Label": "Nie",                            "Opt1Score": 0,
+      "Opt2Label": "Selten (gelegentlich)",          "Opt2Score": 1,
+      "Opt3Label": "Regelmäßig (mehrmals pro Woche)","Opt3Score": 2,
+      "Opt4Label": "Täglich",                        "Opt4Score": 3,
+      "SortOrder": 10, "Language": "de"
+    },
+    {
+      "Title": "Q2 (de)", "QKey": "Q2",
+      "Question": "Wie sicher fühlst du dich beim Schreiben von Prompts?",
+      "Opt1Label": "Unsicher",                       "Opt1Score": 0,
+      "Opt2Label": "Grundlagen verstanden",          "Opt2Score": 1,
+      "Opt3Label": "Ich kenne gängige Patterns",     "Opt3Score": 2,
+      "Opt4Label": "Ich coache andere",              "Opt4Score": 3,
+      "SortOrder": 20, "Language": "de"
+    },
+    {
+      "Title": "Q3 (de)", "QKey": "Q3",
+      "Question": "Hast du schon einmal einen KI-Use-Case in deinem Bereich umgesetzt?",
+      "Opt1Label": "Nein",                                    "Opt1Score": 0,
+      "Opt2Label": "Idee vorhanden",                          "Opt2Score": 1,
+      "Opt3Label": "Pilot in Vorbereitung oder umgesetzt",    "Opt3Score": 2,
+      "Opt4Label": "Mehrere Use Cases produktiv",             "Opt4Score": 3,
+      "SortOrder": 30, "Language": "de"
+    },
+    {
+      "Title": "Q4 (de)", "QKey": "Q4",
+      "Question": "Kennst du die internen Compliance- und EU-AI-Act-Vorgaben?",
+      "Opt1Label": "Nein",                                    "Opt1Score": 0,
+      "Opt2Label": "Grobe Vorstellung",                       "Opt2Score": 1,
+      "Opt3Label": "Habe Schulung absolviert",                "Opt3Score": 2,
+      "Opt4Label": "Ich berate andere dazu",                  "Opt4Score": 3,
+      "SortOrder": 40, "Language": "de"
+    },
+    {
+      "Title": "Q5 (de)", "QKey": "Q5",
+      "Question": "Wie aktiv bringst du dich in die AI-Champion-Community ein?",
+      "Opt1Label": "Gar nicht",                               "Opt1Score": 0,
+      "Opt2Label": "Lese mit",                                "Opt2Score": 1,
+      "Opt3Label": "Ich nehme an Sessions teil",              "Opt3Score": 2,
+      "Opt4Label": "Ich organisiere Sessions",                "Opt4Score": 3,
+      "SortOrder": 50, "Language": "de"
+    },
+
+    {
+      "Title": "Q1 (en)", "QKey": "Q1",
+      "Question": "How often do you use AI tools in your daily work?",
+      "Opt1Label": "Never",                                   "Opt1Score": 0,
+      "Opt2Label": "Rarely (occasionally)",                   "Opt2Score": 1,
+      "Opt3Label": "Regularly (multiple times per week)",     "Opt3Score": 2,
+      "Opt4Label": "Daily",                                   "Opt4Score": 3,
+      "SortOrder": 10, "Language": "en"
+    },
+    {
+      "Title": "Q2 (en)", "QKey": "Q2",
+      "Question": "How confident are you when writing prompts?",
+      "Opt1Label": "Not confident",                           "Opt1Score": 0,
+      "Opt2Label": "Understand the basics",                   "Opt2Score": 1,
+      "Opt3Label": "I know the common patterns",              "Opt3Score": 2,
+      "Opt4Label": "I coach others",                          "Opt4Score": 3,
+      "SortOrder": 20, "Language": "en"
+    },
+    {
+      "Title": "Q3 (en)", "QKey": "Q3",
+      "Question": "Have you ever delivered an AI use case in your area?",
+      "Opt1Label": "No",                                      "Opt1Score": 0,
+      "Opt2Label": "Idea exists",                             "Opt2Score": 1,
+      "Opt3Label": "Pilot ready or running",                  "Opt3Score": 2,
+      "Opt4Label": "Multiple use cases in production",        "Opt4Score": 3,
+      "SortOrder": 30, "Language": "en"
+    },
+    {
+      "Title": "Q4 (en)", "QKey": "Q4",
+      "Question": "Do you know the internal compliance and EU AI Act requirements?",
+      "Opt1Label": "No",                                      "Opt1Score": 0,
+      "Opt2Label": "Rough idea",                              "Opt2Score": 1,
+      "Opt3Label": "Completed training",                      "Opt3Score": 2,
+      "Opt4Label": "I advise others on it",                   "Opt4Score": 3,
+      "SortOrder": 40, "Language": "en"
+    },
+    {
+      "Title": "Q5 (en)", "QKey": "Q5",
+      "Question": "How actively do you engage in the AI Champion community?",
+      "Opt1Label": "Not at all",                              "Opt1Score": 0,
+      "Opt2Label": "I follow along",                          "Opt2Score": 1,
+      "Opt3Label": "I attend sessions",                       "Opt3Score": 2,
+      "Opt4Label": "I organise sessions",                     "Opt4Score": 3,
+      "SortOrder": 50, "Language": "en"
+    }
+  ]
+}

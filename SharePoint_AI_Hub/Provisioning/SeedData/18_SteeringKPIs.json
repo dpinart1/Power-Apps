@@ -1,0 +1,18 @@
+{
+  "list": "AIHub_SteeringKPIs",
+  "items": [
+    { "Title": "Programm-Status",         "KPIKey": "status",      "Value": "Grün",        "Label": "Programm-Status",        "Target": "Grün",     "Color": "#00d4b3", "Progress": 92, "Trend": "stabil",        "SortOrder": 10, "Language": "de" },
+    { "Title": "Budget-Verbrauch",        "KPIKey": "budget",      "Value": "63%",         "Label": "Budget-Verbrauch",       "Target": "≤ 80%",    "Color": "#6c8cff", "Progress": 63, "Trend": "+4% QoQ",       "SortOrder": 20, "Language": "de" },
+    { "Title": "Risikoampel",             "KPIKey": "risk",        "Value": "Gelb",        "Label": "Risikoampel",            "Target": "Grün",     "Color": "#ffc857", "Progress": 60, "Trend": "verbessert",    "SortOrder": 30, "Language": "de" },
+    { "Title": "Champions je Bereich",    "KPIKey": "champ",       "Value": "8 / 12",      "Label": "Champions je Bereich",   "Target": "12 / 12",  "Color": "#6c8cff", "Progress": 67, "Trend": "+2 Q1",          "SortOrder": 40, "Language": "de" },
+    { "Title": "Trainings-Stunden / FTE", "KPIKey": "trainfte",    "Value": "1.4 h",       "Label": "Trainings-Stunden / FTE","Target": "3.0 h",    "Color": "#00d4b3", "Progress": 47, "Trend": "+0.2 QoQ",       "SortOrder": 50, "Language": "de" },
+    { "Title": "Audit-Findings offen",    "KPIKey": "audit",       "Value": "3",           "Label": "Audit-Findings offen",   "Target": "0",        "Color": "#ff7a90", "Progress": 70, "Trend": "−2 QoQ",         "SortOrder": 60, "Language": "de" },
+
+    { "Title": "Programme status",        "KPIKey": "status",      "Value": "Green",       "Label": "Programme status",       "Target": "Green",    "Color": "#00d4b3", "Progress": 92, "Trend": "stable",        "SortOrder": 10, "Language": "en" },
+    { "Title": "Budget burn",             "KPIKey": "budget",      "Value": "63%",         "Label": "Budget burn",            "Target": "≤ 80%",    "Color": "#6c8cff", "Progress": 63, "Trend": "+4% QoQ",       "SortOrder": 20, "Language": "en" },
+    { "Title": "Risk light",              "KPIKey": "risk",        "Value": "Yellow",      "Label": "Risk light",             "Target": "Green",    "Color": "#ffc857", "Progress": 60, "Trend": "improved",      "SortOrder": 30, "Language": "en" },
+    { "Title": "Champions per area",      "KPIKey": "champ",       "Value": "8 / 12",      "Label": "Champions per area",     "Target": "12 / 12",  "Color": "#6c8cff", "Progress": 67, "Trend": "+2 Q1",          "SortOrder": 40, "Language": "en" },
+    { "Title": "Training hours / FTE",    "KPIKey": "trainfte",    "Value": "1.4 h",       "Label": "Training hours / FTE",   "Target": "3.0 h",    "Color": "#00d4b3", "Progress": 47, "Trend": "+0.2 QoQ",       "SortOrder": 50, "Language": "en" },
+    { "Title": "Open audit findings",     "KPIKey": "audit",       "Value": "3",           "Label": "Open audit findings",    "Target": "0",        "Color": "#ff7a90", "Progress": 70, "Trend": "−2 QoQ",         "SortOrder": 60, "Language": "en" }
+  ]
+}

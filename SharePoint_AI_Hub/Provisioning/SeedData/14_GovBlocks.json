@@ -1,0 +1,12 @@
+{
+  "list": "AIHub_GovBlocks",
+  "items": [
+    { "Title": "Sicher",            "BlockTitle": "Sicher",            "BlockText": "Datenklassifizierung, Vendor-Bewertung, Pen-Tests, Logging und Monitoring – alles vor dem Go-Live.",                  "Icon": "🛡️", "SortOrder": 10, "Language": "de" },
+    { "Title": "Verantwortungsvoll","BlockTitle": "Verantwortungsvoll","BlockText": "Bias-Reviews, Mensch in der Schleife für kritische Entscheidungen, Erklärbarkeit und Beschwerdeprozess.",                "Icon": "⚖️", "SortOrder": 20, "Language": "de" },
+    { "Title": "Konform",           "BlockTitle": "Konform",           "BlockText": "EU AI Act, DSGVO, ISO/IEC 42001 – Mapping zu unseren internen Kontrollen, geprüft im Audit-Cycle.",                       "Icon": "✅", "SortOrder": 30, "Language": "de" },
+
+    { "Title": "Secure",            "BlockTitle": "Secure",            "BlockText": "Data classification, vendor assessment, pen-tests, logging and monitoring – all before go-live.",                       "Icon": "🛡️", "SortOrder": 10, "Language": "en" },
+    { "Title": "Responsible",       "BlockTitle": "Responsible",       "BlockText": "Bias reviews, human-in-the-loop for critical decisions, explainability and a complaint process.",                       "Icon": "⚖️", "SortOrder": 20, "Language": "en" },
+    { "Title": "Compliant",         "BlockTitle": "Compliant",         "BlockText": "EU AI Act, GDPR, ISO/IEC 42001 – mapped to our internal controls and reviewed in the audit cycle.",                     "Icon": "✅", "SortOrder": 30, "Language": "en" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "list": "AIHub_Navigation",
+  "items": [
+    { "Title": "🏠", "NavKey": "home",        "Label": "Startseite",         "SortOrder": 10, "Language": "de" },
+    { "Title": "🧠", "NavKey": "empowerment", "Label": "Empowerment",        "SortOrder": 20, "Language": "de" },
+    { "Title": "⚙️", "NavKey": "usecases",    "Label": "Use Cases",          "SortOrder": 30, "Language": "de" },
+    { "Title": "📚", "NavKey": "wissen",      "Label": "Wissen",             "SortOrder": 40, "Language": "de" },
+    { "Title": "🛡️", "NavKey": "governance",  "Label": "Governance",         "SortOrder": 50, "Language": "de" },
+    { "Title": "📅", "NavKey": "events",      "Label": "Events",             "SortOrder": 60, "Language": "de" },
+    { "Title": "📊", "NavKey": "steuerung",   "Label": "Steuerung",          "SortOrder": 70, "Language": "de" },
+
+    { "Title": "🏠", "NavKey": "home",        "Label": "Home",               "SortOrder": 10, "Language": "en" },
+    { "Title": "🧠", "NavKey": "empowerment", "Label": "Empowerment",        "SortOrder": 20, "Language": "en" },
+    { "Title": "⚙️", "NavKey": "usecases",    "Label": "Use Cases",          "SortOrder": 30, "Language": "en" },
+    { "Title": "📚", "NavKey": "wissen",      "Label": "Knowledge",          "SortOrder": 40, "Language": "en" },
+    { "Title": "🛡️", "NavKey": "governance",  "Label": "Governance",         "SortOrder": 50, "Language": "en" },
+    { "Title": "📅", "NavKey": "events",      "Label": "Events",             "SortOrder": 60, "Language": "en" },
+    { "Title": "📊", "NavKey": "steuerung",   "Label": "Steering",           "SortOrder": 70, "Language": "en" }
+  ]
+}

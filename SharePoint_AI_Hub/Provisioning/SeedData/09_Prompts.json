@@ -1,0 +1,62 @@
+{
+  "list": "AIHub_Prompts",
+  "items": [
+    {
+      "Title": "Meeting-Zusammenfassung mit Action-Items",
+      "PromptKey": "summary",
+      "Category": "Produktivität",
+      "PromptText": "Du bist ein erfahrener Executive Assistant.\nFasse das folgende Meeting-Transkript in maximal 6 Bullet Points zusammen, hebe Entscheidungen separat hervor und liste alle Action-Items mit Owner und Termin in einer Tabelle.\nTranskript: <fügen ein>",
+      "SortOrder": 10, "Language": "de"
+    },
+    {
+      "Title": "Datenanalyse als Storyline",
+      "PromptKey": "datastory",
+      "Category": "Analyse",
+      "PromptText": "Rolle: Senior Data Analyst.\nAufgabe: Aus den folgenden Zahlen eine 3-stufige Storyline (Lage, Ursache, Empfehlung) bauen.\nNenne explizit Annahmen, Grenzen der Aussage und 2 weiterführende Fragen.\nDaten: <fügen ein>",
+      "SortOrder": 20, "Language": "de"
+    },
+    {
+      "Title": "E-Mail-Antwort professionell formulieren",
+      "PromptKey": "emailreply",
+      "Category": "Kommunikation",
+      "PromptText": "Du bist Communications Specialist.\nFormuliere eine professionelle Antwort auf folgende E-Mail.\nTon: freundlich, klar, lösungsorientiert. Sprache: Deutsch, Sie-Form.\nMein Standpunkt: <kurz beschreiben>\nE-Mail: <fügen ein>",
+      "SortOrder": 30, "Language": "de"
+    },
+    {
+      "Title": "Use-Case-Steckbrief",
+      "PromptKey": "ucsteckbrief",
+      "Category": "Innovation",
+      "PromptText": "Erstelle einen 1-Pager-Use-Case-Steckbrief mit den Abschnitten: Ziel, Nutzergruppen, Datenquellen, Lösung, Risiken, ROI-Schätzung, Next Steps.\nKontext: <kurz beschreiben>",
+      "SortOrder": 40, "Language": "de"
+    },
+
+    {
+      "Title": "Meeting summary with action items",
+      "PromptKey": "summary",
+      "Category": "Productivity",
+      "PromptText": "You are an experienced Executive Assistant.\nSummarise the following meeting transcript in max. 6 bullets, highlight decisions separately, and list all action items with owner and due date in a table.\nTranscript: <paste here>",
+      "SortOrder": 10, "Language": "en"
+    },
+    {
+      "Title": "Data analysis as a storyline",
+      "PromptKey": "datastory",
+      "Category": "Analysis",
+      "PromptText": "Role: Senior Data Analyst.\nTask: Build a 3-step storyline (situation, cause, recommendation) from the following numbers.\nState assumptions and limits explicitly, plus 2 follow-up questions.\nData: <paste here>",
+      "SortOrder": 20, "Language": "en"
+    },
+    {
+      "Title": "Compose a professional email reply",
+      "PromptKey": "emailreply",
+      "Category": "Communication",
+      "PromptText": "You are a Communications Specialist.\nCompose a professional reply to the following email.\nTone: friendly, clear, solution-oriented. Language: English.\nMy position: <briefly>\nEmail: <paste here>",
+      "SortOrder": 30, "Language": "en"
+    },
+    {
+      "Title": "Use-case one-pager",
+      "PromptKey": "ucsteckbrief",
+      "Category": "Innovation",
+      "PromptText": "Create a one-page use-case brief with sections: Goal, User groups, Data sources, Solution, Risks, ROI estimate, Next steps.\nContext: <briefly>",
+      "SortOrder": 40, "Language": "en"
+    }
+  ]
+}

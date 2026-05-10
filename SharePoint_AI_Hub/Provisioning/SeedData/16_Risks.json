@@ -1,0 +1,16 @@
+{
+  "list": "AIHub_Risks",
+  "items": [
+    { "Title": "Datenleck durch Prompt-Eingabe",                 "LevelInternal": "high",   "Owner": "CISO",      "DueDate": "2026-06-30T00:00:00Z", "SortOrder": 10, "Language": "de" },
+    { "Title": "Schatten-IT (Tools ohne Freigabe)",             "LevelInternal": "high",   "Owner": "CIO",       "DueDate": "2026-07-15T00:00:00Z", "SortOrder": 20, "Language": "de" },
+    { "Title": "Bias in Personalentscheidungen",                "LevelInternal": "medium", "Owner": "Head of HR","DueDate": "2026-08-31T00:00:00Z", "SortOrder": 30, "Language": "de" },
+    { "Title": "Vendor Lock-in",                                 "LevelInternal": "medium", "Owner": "Procurement","DueDate":"2026-09-30T00:00:00Z", "SortOrder": 40, "Language": "de" },
+    { "Title": "Mitarbeiter-Akzeptanz unter Erwartung",         "LevelInternal": "low",    "Owner": "HR-OE",     "DueDate": "2026-12-31T00:00:00Z", "SortOrder": 50, "Language": "de" },
+
+    { "Title": "Data leak via prompt input",                     "LevelInternal": "high",   "Owner": "CISO",      "DueDate": "2026-06-30T00:00:00Z", "SortOrder": 10, "Language": "en" },
+    { "Title": "Shadow IT (unapproved tools)",                  "LevelInternal": "high",   "Owner": "CIO",       "DueDate": "2026-07-15T00:00:00Z", "SortOrder": 20, "Language": "en" },
+    { "Title": "Bias in HR decisions",                          "LevelInternal": "medium", "Owner": "Head of HR","DueDate": "2026-08-31T00:00:00Z", "SortOrder": 30, "Language": "en" },
+    { "Title": "Vendor lock-in",                                 "LevelInternal": "medium", "Owner": "Procurement","DueDate":"2026-09-30T00:00:00Z", "SortOrder": 40, "Language": "en" },
+    { "Title": "Employee adoption below target",                "LevelInternal": "low",    "Owner": "HR OD",     "DueDate": "2026-12-31T00:00:00Z", "SortOrder": 50, "Language": "en" }
+  ]
+}

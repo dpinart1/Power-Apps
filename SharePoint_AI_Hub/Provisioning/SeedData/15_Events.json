@@ -1,0 +1,16 @@
+{
+  "list": "AIHub_Events",
+  "items": [
+    { "Title": "Prompting Bootcamp",        "EventDate": "2026-05-21T08:00:00Z", "EventTime": "09:00 – 12:00", "Location": "Berlin · Atrium",        "TypeInternal": "training", "Color": "#6c8cff", "SortOrder": 10, "Language": "de" },
+    { "Title": "AI Champions Meetup",       "EventDate": "2026-05-28T15:00:00Z", "EventTime": "15:00 – 17:00", "Location": "Hybrid · Teams",         "TypeInternal": "meetup",   "Color": "#00d4b3", "SortOrder": 20, "Language": "de" },
+    { "Title": "EU-AI-Act Office Hour",     "EventDate": "2026-06-04T10:00:00Z", "EventTime": "10:00 – 11:00", "Location": "Online",                  "TypeInternal": "webinar",  "Color": "#ff7a90", "SortOrder": 30, "Language": "de" },
+    { "Title": "Power Platform AI Day",     "EventDate": "2026-06-12T08:30:00Z", "EventTime": "09:00 – 17:00", "Location": "München · Innovation Lab","TypeInternal": "workshop", "Color": "#ffc857", "SortOrder": 40, "Language": "de" },
+    { "Title": "AI Strategy Summit",        "EventDate": "2026-09-30T08:00:00Z", "EventTime": "ganztägig",     "Location": "Hamburg · Elbphilharmonie","TypeInternal": "summit",  "Color": "#6c8cff", "SortOrder": 50, "Language": "de" },
+
+    { "Title": "Prompting Bootcamp",        "EventDate": "2026-05-21T08:00:00Z", "EventTime": "09:00 – 12:00", "Location": "Berlin · Atrium",        "TypeInternal": "training", "Color": "#6c8cff", "SortOrder": 10, "Language": "en" },
+    { "Title": "AI Champions Meetup",       "EventDate": "2026-05-28T15:00:00Z", "EventTime": "15:00 – 17:00", "Location": "Hybrid · Teams",         "TypeInternal": "meetup",   "Color": "#00d4b3", "SortOrder": 20, "Language": "en" },
+    { "Title": "EU AI Act Office Hour",     "EventDate": "2026-06-04T10:00:00Z", "EventTime": "10:00 – 11:00", "Location": "Online",                  "TypeInternal": "webinar",  "Color": "#ff7a90", "SortOrder": 30, "Language": "en" },
+    { "Title": "Power Platform AI Day",     "EventDate": "2026-06-12T08:30:00Z", "EventTime": "09:00 – 17:00", "Location": "Munich · Innovation Lab", "TypeInternal": "workshop", "Color": "#ffc857", "SortOrder": 40, "Language": "en" },
+    { "Title": "AI Strategy Summit",        "EventDate": "2026-09-30T08:00:00Z", "EventTime": "all day",       "Location": "Hamburg · Elbphilharmonie","TypeInternal": "summit",  "Color": "#6c8cff", "SortOrder": 50, "Language": "en" }
+  ]
+}
